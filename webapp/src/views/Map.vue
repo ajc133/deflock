@@ -56,7 +56,7 @@
       </l-control>
 
       <DFMarkerCluster v-if="showClusters" v-for="cluster in clusters" :key="cluster.id" :lat="cluster.lat" :lon="cluster.lon" />
-      <DFMapMarker v-else v-for="alpr in visibleALPRs" :key="alpr.id" :alpr :show-fov="zoom >= 16" />
+      <DFMapMarker v-else v-for="alpr in visibleALPRs" :key="alpr.properties.id" :alpr :show-fov="zoom >= 16" />
     </l-map>
     <div class="loader" v-else>
       <span class="mb-4 text-grey">Loading Map</span>
@@ -78,7 +78,7 @@ import { useDisplay, useTheme } from 'vuetify';
 import DFMapMarker from '@/components/DFMapMarker.vue';
 import DFMarkerCluster from '@/components/DFMarkerCluster.vue';
 import NewVisitor from '@/components/NewVisitor.vue';
-import type { ALPR } from '@/types';
+import type { GeoJSONPoint } from '@/types';
 
 const DEFAULT_ZOOM = 12;
 const MIN_ZOOM_FOR_REFRESH = 4;
@@ -100,14 +100,14 @@ const mapTileUrl = computed(() =>
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 );
 
-const alprs: Ref<ALPR[]> = ref([]);
+const alprs: Ref<GeoJSONPoint[]> = ref([]);
 const clusters: Ref<Cluster[]> = ref([]);
 const bboxForLastRequest: Ref<BoundingBox|null> = ref(null);
 const showClusters = computed(() => zoom.value <= CLUSTER_ZOOM_THRESHOLD);
 const isLoadingALPRs = ref(false);
 
 const visibleALPRs = computed(() => {
-  return alprs.value.filter(alpr => bounds.value?.containsPoint(alpr.lat, alpr.lon));
+  return alprs.value.filter(alpr => bounds.value?.containsPoint(alpr.geometry.coordinates[0], alpr.geometry.coordinates[1]));
 });
 
 function handleKeyUp(event: KeyboardEvent) {
@@ -223,8 +223,8 @@ function updateMarkers() {
   getALPRs(bounds.value)
     .then((result: any) => {
       // merge incoming with existing, so that moving the map doesn't remove markers
-      const existingIds = new Set(alprs.value.map(alpr => alpr.id));
-      const newAlprs = result.elements.filter((alpr: any) => !existingIds.has(alpr.id));
+      const existingIds = new Set(alprs.value.map(alpr => alpr.properties.id));
+      const newAlprs = result.filter((alpr: any) => !existingIds.has(alpr.properties.id));
       alprs.value = [...alprs.value, ...newAlprs];
       bboxForLastRequest.value = bounds.value;
     })

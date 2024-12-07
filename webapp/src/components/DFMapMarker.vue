@@ -1,5 +1,5 @@
 <template>
-  <l-circle-marker :lat-lng="[alpr.lat, alpr.lon]" :radius="7" :color="markerColor">
+  <l-circle-marker :lat-lng="[alpr.geometry.coordinates[1], alpr.geometry.coordinates[0]]" :radius="7" :color="markerColor">
     <l-popup>
       <DFMapPopup :alpr="alpr" />
     </l-popup>
@@ -20,13 +20,13 @@
 <script setup lang="ts">
 import { LCircleMarker, LPolygon, LPopup } from '@vue-leaflet/vue-leaflet';
 import DFMapPopup from '@/components/DFMapPopup.vue';
-import type { ALPR } from '@/types';
+import type { GeoJSONPoint } from '@/types';
 import type { PropType } from 'vue';
 import { computed, defineProps } from 'vue';
 
 const props = defineProps({
   alpr: {
-    type: Object as PropType<ALPR>,
+    type: Object as PropType<GeoJSONPoint>,
     required: true
   },
   showFov: {
@@ -36,21 +36,21 @@ const props = defineProps({
 });
 
 const markerColor = computed(() => {
-  if (props.alpr.tags.brand === 'Avigilon') {
+  if (props.alpr.properties.tags.brand === 'Avigilon') {
     return '#ff5722';
   }
   return '#3f54f3';
 });
 
-const hasDirection = computed(() => props.alpr.tags.direction !== undefined);
+const hasDirection = computed(() => props.alpr.properties.tags.direction !== undefined);
 
 const directionIndicatorPolygonCoordinates = computed(() => {
   if (!hasDirection.value) {
     console.warn('ALPR does not have direction tag');
     return [];
   }
-  const { lat, lon } = props.alpr;
-  const direction = parseInt(props.alpr.tags.direction);
+  const [ lon, lat ] = props.alpr.geometry.coordinates;
+  const direction = parseInt(props.alpr.properties.tags.direction);
   const fov = 30; // Field of view in degrees
   const distance = 0.0004; // Distance for the triangle points
 

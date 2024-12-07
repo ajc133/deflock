@@ -19,15 +19,15 @@ export class BoundingBox implements BoundingBoxLiteral {
   minLng: number;
   maxLng: number;
 
-  constructor({minLat, maxLat, minLng, maxLng}: BoundingBoxLiteral) {
+  constructor({ minLat, maxLat, minLng, maxLng }: BoundingBoxLiteral) {
     this.minLat = minLat;
     this.maxLat = maxLat;
     this.minLng = minLng;
     this.maxLng = maxLng;
   }
 
-  containsPoint(lat: number, lng: number) {
-    return lat >= this.minLat && lat <= this.maxLat && lng >= this.minLng && lng <= this.maxLng;
+  containsPoint(lon: number, lat: number) {
+    return lat >= this.minLat && lat <= this.maxLat && lon >= this.minLng && lon <= this.maxLng;
   }
 
   updateFromOther(boundingBoxLiteral: BoundingBoxLiteral) {
@@ -110,7 +110,7 @@ export const geocodeQuery = async (query: string, currentLocation: any) => {
 
   if (cityStatePattern.test(query)) {
     console.debug("cityStatePattern");
-    const cityStateResults = results.filter((result: any) => 
+    const cityStateResults = results.filter((result: any) =>
       ["city", "town", "village", "hamlet", "suburb", "quarter", "neighbourhood", "borough"].includes(result.addresstype)
     );
     if (cityStateResults.length) {
