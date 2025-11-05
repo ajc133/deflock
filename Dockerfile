@@ -16,7 +16,7 @@ COPY --from=frontend-build /app/frontend/dist/ ../webapp/dist/
 RUN sbt assembly
 
 # Stage 3: Run the Scala app
-FROM docker.io/openjdk:11-jre-slim
+FROM eclipse-temurin:11-jre-jammy
 WORKDIR /app
 COPY --from=scala-build /app/target/scala-2.12/shotgun-assembly-0.1.0-SNAPSHOT.jar ./shotgun-assembly-0.1.0-SNAPSHOT.jar
 COPY --from=frontend-build /app/frontend/dist/ ../webapp/dist/
