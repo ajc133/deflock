@@ -7,7 +7,7 @@
 
 <v-container class="mb-16">
   <!-- Introduction Section -->
-  <v-row class="mb-12">
+  <v-row>
     <v-col cols="12" md="10" lg="8" class="mx-auto">
       <div class="text-center mb-8">
         <v-icon size="64" color="var(--df-blue)" class="mb-4">mdi-account-voice</v-icon>
@@ -17,6 +17,31 @@
           against mass surveillance systems with your local representatives.
         </p>
       </div>
+    </v-col>
+  </v-row>
+
+  <!-- Talking Points -->
+  <v-row class="mb-8">
+    <v-col cols="12" md="10" lg="8" class="mx-auto">
+      <v-card 
+        class="pa-4" 
+        elevation="2" 
+        rounded="lg"
+        hover
+        href="https://consumerrights.wiki/w/Common_Questions,_Arguments,_%26_Responses_when_discussing_Flock_Surveillance"
+        target="_blank"
+      >
+        <div class="d-flex align-center justify-space-between">
+          <div class="d-flex align-center">
+            <v-icon color="primary" class="mr-3 align-self-center">mdi-comment-alert</v-icon>
+            <div>
+              <h4 class="text-h6 font-weight-bold mb-1">Talking Points</h4>
+              <p class="text-body-2 mb-0">Common questions, arguments & responses for discussing surveillance</p>
+            </div>
+          </div>
+          <v-icon color="primary" class="align-self-center">mdi-open-in-new</v-icon>
+        </div>
+      </v-card>
     </v-col>
   </v-row>
 

@@ -28,52 +28,6 @@
     </v-row>
 
     <v-row justify="center">
-      <!-- App Card - shown first when enabled -->
-      <v-col 
-        v-if="isIosAppEnabled" 
-        cols="12" 
-        md="5" 
-        class="pa-4"
-      >
-        <div class="app-card-container">
-          <v-card
-            class="mx-auto h-100 d-flex flex-column"
-            elevation="4"
-            hover
-            to="/app"
-          > 
-            <v-card-item class="bg-green-darken-3">
-              <v-card-title class="text-h5 font-weight-bold text-white">
-                DeFlock App
-              </v-card-title>
-              <v-card-subtitle class="pt-2">
-                for iOS and Android
-              </v-card-subtitle>
-            </v-card-item>
-          
-            <v-img cover :aspect-ratio="1.5" class="mx-auto mt-5" src="/app-screenshots/df-app.webp" style="width: 90%; border-radius: 8px;" />
-          
-            <v-card-text class="text-body-1">
-              <p class="mb-4 sans-serif">The <b>DeFlock App</b> provides a simple mobile interface that's easy to use while walking around.</p>
-            </v-card-text>
-          
-            <v-card-actions class="pa-4">
-              <v-btn
-                block
-                color="green-darken-2"
-                variant="elevated"
-                size="large"
-                to="/app"
-              >
-                Download App
-                <v-icon icon="mdi-arrow-right" end></v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </div>
-      </v-col>
-
-      <!-- Legacy Editor Card -->
       <v-col cols="12" md="5" class="pa-4">
         <v-card
           class="mx-auto h-100 d-flex flex-column"
@@ -111,17 +65,12 @@
         </v-card>
       </v-col>
 
-      <!-- App Card - shown second when disabled (with coming soon banner) -->
-      <v-col 
-        v-if="!isIosAppEnabled" 
-        cols="12" 
-        md="5" 
-        class="pa-4"
-      >
+      <v-col cols="12" md="5" class="pa-4">
         <div class="app-card-container">
           <v-card
             class="mx-auto h-100 d-flex flex-column app-card-disabled"
             elevation="4"
+            :class="{ 'card-disabled': true }"
           > 
             <v-card-item class="bg-green-darken-3">
               <v-card-title class="text-h5 font-weight-bold text-white">
@@ -172,13 +121,6 @@
 
 <script setup lang="ts">
 import ALPRVerificationDialog from '@/components/ALPRVerificationDialog.vue';
-import { useFeatureFlags } from '@/composables/useFeatureFlags';
-import { computed } from 'vue';
-
-const { flags } = useFeatureFlags();
-
-// Computed properties for iOS app state
-const isIosAppEnabled = computed(() => flags.value?.iosApp.enabled ?? false);
 </script>
 
 <style scoped>
@@ -196,7 +138,7 @@ const isIosAppEnabled = computed(() => flags.value?.iosApp.enabled ?? false);
   position: relative;
 }
 
-.app-card-disabled {
+.card-disabled {
   opacity: 0.7;
   pointer-events: none;
   cursor: not-allowed;

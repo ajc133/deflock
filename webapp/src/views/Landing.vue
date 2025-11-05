@@ -37,7 +37,7 @@
 
     <h2 class="display-2 mb-4">The Dangers of ALPRs</h2>
     <p class="px-6">
-      ALPRs are a serious risk to your privacy and civil liberties. These systems continuously record people's movements, often without a warrant, probable cause, or even reasonable suspicion. Your driving history is rarely confined to the town or city where the cameras are installed. It's typically shared with <router-link to="/what-is-an-alpr#faq-transparency">thousands of other agencies nationwide (secretly)</router-link>. Once the data is out of your community, you have no control over how it's used or what rules apply. And once this kind of tracking infrastructure exists, there are no guarantees it will only be used against criminals.
+      ALPRs are a serious risk to your privacy and civil liberties. These systems continuously record people's movements without a warrant, probable cause, or even reasonable suspicion. Your driving history is rarely confined to the town or city where the cameras are installed. It's typically shared with <router-link to="/what-is-an-alpr#faq-transparency">thousands of other agencies nationwide (secretly)</router-link>. Once the data is out of your community, you have no control over how it's used or what rules apply.
     </p>
     <p class="px-6 pt-6">
       Learn more about how Flock, the most popular ALPR vendor<sup>1</sup>, is being used in your community on the independent site:
@@ -47,7 +47,7 @@
       </a>.
     </p>
     <footer class="serif text-grey-darken-2 mt-4">
-      <small><sup>[1]</sup> This claim is based on an OSM Overpass API query conducted on 7/21/2025</small>
+      <small><sup>[1]</sup> This claim is based on an OSM Overpass API query conducted on 11/04/2025</small>
     </footer>
     
     <v-row class="align-center mt-4">

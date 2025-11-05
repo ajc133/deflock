@@ -40,8 +40,7 @@
                   <span v-if="appLinks.android">Get on Android</span>
                   <span v-else>Android Coming Soon</span>
                 </v-btn>
-                
-                <!-- Documentation Link -->
+
                 <v-btn
                   size="large"
                   variant="text"
@@ -231,10 +230,7 @@
 
 <script setup lang="ts">
 import Footer from '@/components/layout/Footer.vue';
-import { useFeatureFlags } from '@/composables/useFeatureFlags';
 import { ref, computed } from 'vue';
-
-const { flags } = useFeatureFlags();
 
 interface Feature {
   id: number;
@@ -269,10 +265,10 @@ interface PrivacyPrinciple {
   description: string;
 }
 
-const appLinks = computed(() => ({
+const appLinks = {
   android: 'https://play.google.com/store/apps/details?id=me.deflock.deflockapp',
-  ios: flags.value?.iosApp.enabled ? flags.value.iosApp.appUrl : undefined,
-}));
+  ios: undefined,
+}
 
 // App features
 const features: Feature[] = [
@@ -490,17 +486,6 @@ const visibleScreenshots = computed(() =>
 .android-btn {
   border: 2px solid white;
   color: white !important;
-}
-
-.doc-btn {
-  color: white !important;
-  opacity: 0.9;
-  transition: all 0.3s ease;
-}
-
-.doc-btn:hover {
-  opacity: 1;
-  transform: translateY(-2px);
 }
 
 .hero-image {
