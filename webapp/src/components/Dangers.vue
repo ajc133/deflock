@@ -40,6 +40,9 @@
 
         <ul>
           <li>
+            In November 2025, <a target="_blank" href="https://www.404media.co/flock-logins-exposed-in-malware-infections-senator-asks-ftc-to-investigate-the-company/">a security researcher found Flock logins for sale on Russian hacking forums</a>, since Flock negligently doesn't require multifactor authentication, an alleged violation of federal law and industry standard security practices.
+          </li>
+          <li>
             In January 2025, Motorola Solutions' ALPR system was <a href="https://www.404media.co/researcher-turns-insecure-license-plate-cameras-into-open-source-surveillance-tool/" target="_blank">found to have a critical security flaw</a> that allowed anyone to access live data from their cameras. Data includes <b>license plate numbers, make, model, color, and timestamps</b>. A <b>live feed</b> of both cameras (color and infrared) was also available to stream using a web browser.
           </li>
           <li>
@@ -110,11 +113,11 @@
 
     <v-expansion-panel>
       <v-expansion-panel-title class="font-weight-bold">
-        ALPR Errors Create Dangerous Police Interactions
+        ALPR Usage Leads to Dangerous Police Encounters
       </v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
-          ALPR misread errors have led to dangerous police encounters, including pulling guns on innocent drivers. Here are just a few examples:
+          The negligent use of ALPRs has led to dangerous police encounters, including pulling guns on innocent drivers. Here are just a few examples:
         </p>
         <ul>
           <li>
@@ -128,6 +131,9 @@
           </li>
           <li>
             <a href="https://www.ktvu.com/news/privacy-advocate-sues-coco-sheriffs-deputies-after-license-plate-readers-target-his-car-stolen" target="_blank">Privacy advocate sues CoCo sheriff's deputies after license plate readers target his car stolen</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://denverite.com/2025/10/27/bow-mar-flock-cameras-accusation/">A Denver woman had to prove her innocence</a> after incompetent detectives relied on Flock cameras to pin a $25 package theft on her <b>(video)</b>.
           </li>
         </ul>
       </v-expansion-panel-text>

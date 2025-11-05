@@ -41,7 +41,7 @@
     
     <v-divider class="my-12" />
     
-    <SimilarProjects />
+    <SimilarProjects id="similar" />
   </v-container>
   <Footer />
 </template>

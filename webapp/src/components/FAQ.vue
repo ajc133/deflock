@@ -2,6 +2,17 @@
   <v-expansion-panels multiple :model-value :readonly="showAll">
     <v-expansion-panel>
       <v-expansion-panel-title class="font-weight-bold">
+        Are ALPRs a necessary tool for police?
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <p>
+          No. Police have always had methods to obtain location information for suspects of crimes. These methods used to require establishing probable cause and obtaining a search warrant, which provides oversight and accountability as required by the 4th Amendment. ALPRs, on the other hand, collect location data on all of us, and they are searched without any warrants or oversight.
+        </p>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+    
+    <v-expansion-panel>
+      <v-expansion-panel-title class="font-weight-bold">
         Why should I care if I have nothing to hide?
       </v-expansion-panel-title>
       <v-expansion-panel-text>
@@ -86,7 +97,10 @@
       </v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
-          Absolutely not. Flock has been caught <i>several times</i> lying on the record. For example, their CEO was interviewed by Denver 9News, and <a href="https://youtu.be/aMfO7D-f7U0?si=23FNwA91zVTwxb02&t=898" target="_blank">he claimed that Flock had no federal contracts.</a> However, a couple weeks later, <a href="https://www.9news.com/article/news/local/flock-federal-immigration-agents-access-tracking-data/73-a8aee742-56d4-4a57-b5bb-0373286dfef8" target="_blank">9News discovered</a> that Border Patrol actually <i>did</i> have access to search Flock's systems. Flock described the data sharing agreement as "one-to-one", meaning an agency would have to accept the data sharing request from Border Patrol.
+          Absolutely not. In November 2025, <a target="_blank" href="https://www.404media.co/flock-logins-exposed-in-malware-infections-senator-asks-ftc-to-investigate-the-company/">a security researcher found Flock logins for sale on Russian hacking forums</a>, since Flock negligently doesn't require multifactor authentication, an alleged violation of federal law and industry standard security practices.
+        </p>
+        <p>
+          Flock has also been caught <i>several times</i> lying on the record. For example, their CEO was interviewed by Denver 9News, and <a href="https://youtu.be/aMfO7D-f7U0?si=23FNwA91zVTwxb02&t=898" target="_blank">he claimed that Flock had no federal contracts.</a> However, a couple weeks later, <a href="https://www.9news.com/article/news/local/flock-federal-immigration-agents-access-tracking-data/73-a8aee742-56d4-4a57-b5bb-0373286dfef8" target="_blank">9News discovered</a> that Border Patrol actually <i>did</i> have access to search Flock's systems. Flock described the data sharing agreement as "one-to-one", meaning an agency would have to accept the data sharing request from Border Patrol.
         </p>
         <p>
           Doubtful of this claim, we filed <a href="https://www.muckrock.com/foi/boulder-172/boulder-alpr-audits-187797/" target="_blank">a public records request</a> with the Boulder Police Department in Colorado, and we found that "U.S. Border Patrol" was searching over 6,000 agencies, consistent with the number of agencies on the national network at the time. Either every agency on the national network happily accepted Border Patrol's request to their data, or Flock was lying on the record yet again.
@@ -100,13 +114,10 @@
       </v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
-          Several cities in the US have killed contracts for ALPRs, such as <a target="_blank" href="https://www.denver7.com/news/local-news/denver-city-council-rejects-contract-expansion-for-license-plate-recognition-cameras-in-the-city">Denver</a> and <a target="_blank" href="http://eff.org/deeplinks/2025/06/victory-austin-organizers-cancel-citys-flock-alpr-contract">Austin</a>. An effective strategy is to raise concerns in your community, build a group of advocates, and petition the city council not to extend the contract. This can be done through public comment at meetings and is most effective when there is a large enough group of concerned residents.
+          Several cities in the US have killed contracts for ALPRs, such as <a target="_blank" href="https://www.denver7.com/news/local-news/denver-city-council-rejects-contract-expansion-for-license-plate-recognition-cameras-in-the-city">Denver</a> and <a target="_blank" href="http://eff.org/deeplinks/2025/06/victory-austin-organizers-cancel-citys-flock-alpr-contract">Austin</a>. An effective strategy is to raise concerns in your community, build a group of advocates, and petition the city council not to extend the contract.
         </p>
         <p>
-          <a target="_blank" href="https://youtu.be/YjaH_1Ia6NA">
-            <v-icon start>mdi-youtube</v-icon>
-            Watch Denver's talking points by Councilmember Sarah Parady
-          </a>
+          For more info, please see our <router-link to="/council">city council page</router-link> and join our Discord for support.
         </p>
       </v-expansion-panel-text>
     </v-expansion-panel>
@@ -114,7 +125,6 @@
 </template>
 
 <script setup lang="ts">
-import QuotedSource from '@/components/QuotedSource.vue';
 import { ref, onMounted, watch } from 'vue';
 
 const props = defineProps({
