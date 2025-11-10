@@ -225,9 +225,9 @@
   <!-- Success Stories -->
   <v-row class="mb-12">
     <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <v-card class="pa-6" elevation="3" rounded="lg" variant="tonal">
-        <div class="d-flex align-center justify-space-between mb-6">
-          <div class="d-flex align-center">
+      <div ref="tableRef" class="intersection-target">
+        <v-card class="pa-6" elevation="3" rounded="lg">
+          <div class="d-flex align-center mb-4">
             <v-avatar size="48" color="primary" class="mr-4">
               <v-icon size="24" color="white">mdi-trophy</v-icon>
             </v-avatar>
@@ -236,72 +236,104 @@
               <p class="text-body-2 text-medium-emphasis mb-0">Communities across the country are winning</p>
             </div>
           </div>
-          <v-chip
-            color="primary"
-            variant="elevated"
-            size="large"
-            class="font-weight-bold"
-          >
-            {{ citiesRejectingFlock.length }} Recent Wins
-          </v-chip>
-        </div>
         
-        <div class="timeline-container">
-          <!-- Timeline Items -->
-          <div 
-            v-for="(city, index) in (showAllVictories ? citiesRejectingFlock : citiesRejectingFlock.slice(0, 3))" 
-            :key="index"
-            class="timeline-item"
-            :class="{ 'timeline-item-last': index === (showAllVictories ? citiesRejectingFlock.length - 1 : 2) }"
-          >
-            <div class="timeline-marker">
-              <v-avatar size="48" color="primary">
-                <v-icon color="white">mdi-check-bold</v-icon>
-              </v-avatar>
+        <v-data-table
+          :headers="headers"
+          :items="citiesRejectingFlock"
+          :loading="loading"
+          :items-per-page="10"
+          :items-per-page-options="[10, 25, 50]"
+          class="elevation-0"
+          density="comfortable"
+          hover
+          show-expand
+          item-value="cityState"
+        >
+          <template v-slot:header.cityState="{ column }">
+            <div class="d-flex align-center text-medium-emphasis">
+              <v-icon icon="mdi-map-marker" size="18" class="mr-2" />
+              <span class="text-caption font-weight-medium">{{ column.title }}</span>
             </div>
-            <div class="timeline-content">
-              <div class="timeline-card">
-                <div class="d-flex align-center justify-space-between mb-2">
-                  <h4 class="text-h6 font-weight-bold">{{ city.cityState }}</h4>
-                  <v-chip size="small" color="grey" variant="outlined">{{ city.monthYear }}</v-chip>
-                </div>
-                <p v-html="city.descriptionHtml" class="text-body-2 mb-2" />
-                <v-chip
-                  size="large"
-                  color="primary"
-                  class="mt-4"
-                >
-                  <v-icon
-                    :icon="outcomeStyling[city.outcome].icon"
-                    class="mr-2"
-                  />
-                  {{ city.outcome }}
-                </v-chip>
+          </template>
 
-                <div v-if="city.outcomeNotes" class="mt-3">
-                  <v-alert type="info" variant="tonal" dense>
-                    {{ city.outcomeNotes }}
-                  </v-alert>
-                </div>
-              </div>
+          <template v-slot:header.MonthYear="{ column }">
+            <div class="d-flex align-center text-medium-emphasis">
+              <v-icon icon="mdi-calendar-month" size="18" class="mr-2" />
+              <span class="text-caption font-weight-medium">{{ column.title }}</span>
             </div>
-          </div>
+          </template>
 
-          <!-- Show More/Less Button -->
-          <div v-if="citiesRejectingFlock.length > 3" class="text-center mt-6">
+          <template v-slot:header.Outcome="{ column }">
+            <div class="d-flex align-center text-medium-emphasis">
+              <v-icon icon="mdi-trophy-outline" size="18" class="mr-2" />
+              <span class="text-caption font-weight-medium">{{ column.title }}</span>
+            </div>
+          </template>
+
+          <template v-slot:item.data-table-expand="{ internalItem, isExpanded, toggleExpand }">
             <v-btn
-              @click="showAllVictories = !showAllVictories"
-              :prepend-icon="showAllVictories ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-              color="primary"
-              variant="outlined"
-              size="large"
-              class="font-weight-medium"
-            >
-              {{ showAllVictories ? 'Show Less' : `View All ${citiesRejectingFlock.length} Victories` }}
-            </v-btn>
-          </div>
+              :append-icon="isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+              :text="isExpanded(internalItem) ? 'Collapse' : 'More info'"
+              class="text-none"
+              color="medium-emphasis"
+              size="small"
+              variant="text"
+              border
+              slim
+              @click="toggleExpand(internalItem)"
+            />
+          </template>
+
+          <template v-slot:expanded-row="{ columns, item }">
+            <tr>
+              <td :colspan="columns.length" class="pa-4">
+                <div v-html="item.description" class="text-body-1" style="line-height: 1.6;"></div>
+              </td>
+            </tr>
+          </template>
+
+          <template v-slot:item.cityState="{ item }">
+            <span class="font-weight-bold">{{ item.cityState }}</span>
+          </template>
+          
+          <template v-slot:item.MonthYear="{ item }">
+            {{ item.MonthYear }}
+          </template>
+          
+          <template v-slot:item.Outcome="{ item }">
+            <v-icon icon="mdi-check-bold" size="18" class="mr-2" />
+            <span class="font-weight-bold">{{ item.Outcome }}</span>
+          </template>
+          
+          <template v-slot:loading>
+            <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+          </template>
+          
+          <template v-slot:no-data>
+            <div class="text-center py-8">
+              <v-icon size="48" color="grey-lighten-1" class="mb-4">mdi-database-off</v-icon>
+              <div class="text-h6 text-medium-emphasis">No victories found</div>
+              <div class="text-body-2 text-medium-emphasis mt-2">
+                Check your connection and try again
+              </div>
+              <v-btn
+                @click="fetchRecentWins"
+                color="primary"
+                variant="outlined"
+                class="mt-4"
+                prepend-icon="mdi-refresh"
+              >
+                Retry
+              </v-btn>
+            </div>
+          </template>
+        </v-data-table>
+
+        <div v-if="lastUpdated" class="mt-4 text-caption text-medium-emphasis text-center">
+          Last updated: {{ formatDate(lastUpdated) }}
         </div>
-      </v-card>
+        </v-card>
+      </div>
     </v-col>
   </v-row>
 
@@ -338,138 +370,134 @@
 <script setup lang="ts">
 import Hero from '@/components/layout/Hero.vue';
 import Footer from '@/components/layout/Footer.vue';
-import { computed, ref } from 'vue';
-import { useTheme } from 'vuetify';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
-const theme = useTheme();
-const isDark = computed(() => theme.name.value === 'dark');
-
-// Reactive variable for showing all victories
-const showAllVictories = ref(false);
-// Reactive variable for active tab
-const activeTab = ref('step1');
-
-enum Outcome {
-  ContractRejected = "Contract Rejected",
-  ContractCanceled = "Contract Canceled",
-  CamerasDeactivated = "Cameras Deactivated",
-  Other = "Other"
-}
-
-const outcomeStyling = {
-  [Outcome.ContractRejected]: { color: "red", icon: "mdi-file-cancel-outline" },
-  [Outcome.ContractCanceled]: { color: "orange", icon: "mdi-file-cancel-outline" },
-  [Outcome.CamerasDeactivated]: { color: "yellow", icon: "mdi-eye-off" },
-  [Outcome.Other]: { color: "grey", icon: "mdi-help-circle" }
+const sortMonthYearByDateDesc = (a: string, b: string) => {
+  const [aMonth, aYear] = a.split(/\s/);
+  const [bMonth, bYear] = b.split(/\s/);
+  const aDate = new Date(`${aMonth} 1, ${aYear}`);
+  const bDate = new Date(`${bMonth} 1, ${bYear}`);
+  return bDate.getTime() - aDate.getTime();
 };
 
 interface CityRejection {
   cityState: string;
-  monthYear: string;
-  descriptionHtml: string;
-  outcome: Outcome;
-  outcomeNotes?: string;
+  MonthYear: string;
+  description: string;
+  Outcome: string;
 }
 
-const citiesRejectingFlock: CityRejection[] = [
-  {
-    cityState: "Denver, CO",
-    monthYear: "May 2025",
-    descriptionHtml: 'City council <a href="https://denverite.com/2025/05/05/denver-rejects-flock-camera-license-plate-readers/" target="_blank">voted unanimously</a> to reject the $666,000 contract extension with Flock Safety after public pushback and concerns over privacy, civil liberties, and sharing data with federal agencies.',
-    outcome: Outcome.ContractRejected,
-    outcomeNotes: 'Despite city council rejecting the contract extension, Mayor Johnston went against the council and signed an extension of the contract himself just below the cost threshold required for council approval.'
+interface CMSResponse {
+  id: number;
+  WinInstances: CityRejection[];
+  date_updated: string;
+}
+
+// Reactive data for CMS content
+const citiesRejectingFlock = ref<CityRejection[]>([]);
+const lastUpdated = ref<string>('');
+const loading = ref<boolean>(false);
+const tableRef = ref<HTMLElement | null>(null);
+const hasLoaded = ref<boolean>(false);
+
+// Intersection observer for lazy loading
+let observer: IntersectionObserver | null = null;
+
+// Data table configuration
+const headers = [
+  { 
+    title: 'City/State',
+    key: 'cityState', 
+    width: '30%',
+    sortable: false
   },
-  {
-    cityState: "Austin, TX",
-    monthYear: "June 2025",
-    descriptionHtml: 'City council <a target="_blank" href="https://www.eff.org/deeplinks/2025/06/victory-austin-organizers-cancel-citys-flock-alpr-contract">voted to block the renewal</a> of Austin\'s contract with Flock Safety after controversial uses for the system, violations of department policy, and contract language that went against council mandates on data retention.',
-    outcome: Outcome.ContractRejected
+  { 
+    title: 'Date',
+    key: 'MonthYear', 
+    width: '25%',
+    sortable: false,
   },
-  {
-    cityState: "Oak Park, IL",
-    monthYear: "August 2025",
-    descriptionHtml: 'City council voted to cancel its contract with Flock Safety following a state investigation of the system\'s data sharing practices, <a href="https://www.oakpark.com/2025/08/07/oak-park-terminates-flock-license-plate-reader-contract/" target="_blank">which enabled violations of state law</a>.',
-    outcome: Outcome.ContractCanceled
-  },
-  {
-    cityState: "Evanston, IL",
-    monthYear: "August 2025",
-    descriptionHtml: 'The City of Evanston ended its contract with Flock Safety and requested the deactivation of the cameras following an audit by the Secretary of State showing the company was <a target="_blank" href="https://evanstonroundtable.com/2025/08/26/evanston-shuts-down-license-plate-cameras-terminates-contract-with-flock-safety/">violating state law</a> by sharing Illinois data with federal agencies. Flock then <a target="_blank" href="https://evanstonroundtable.com/2025/09/24/flock-safety-reinstalls-evanston-cameras/">reinstalled the cameras against the city\'s wishes</a>, prompting a cease-and-desist by the city.',
-    outcome: Outcome.ContractCanceled
-  },
-  {
-    cityState: "Louisville, CO",
-    monthYear: "August 2025",
-    descriptionHtml: 'The City of Louisville deactivated its cameras after a community member found that the system <a target="_blank" href="https://www.cbsnews.com/colorado/news/license-plate-reading-cameras-colorado-regulation-misuse/">was severely misrepresented</a> in both its data sharing practices and its capabilities.',
-    outcome: Outcome.CamerasDeactivated
-  },
-  {
-    cityState: "Sedona, AZ",
-    monthYear: "September 2025",
-    descriptionHtml: 'City council voted unanimously to end their contract with Flock Safety after council members claimed they were <a href="https://www.knau.org/knau-and-arizona-news/2025-09-11/sedona-council-permanently-ends-license-plate-camera-program" target="_blank">misled and lied to</a> about the system\'s data sharing features.',
-    outcome: Outcome.ContractCanceled
-  },
-  {
-    cityState: "Lockhart, TX",
-    monthYear: "October 2025",
-    descriptionHtml: 'City council <a target="_blank" href="https://www.kxan.com/news/local/caldwell-county/lockhart-city-council-rejects-flock-ai-cameras-in-6-1-vote/">voted 6-1 to reject a contract with Flock Safety</a> after an overwhelmingly negative public response, citing privacy concerns, government overreach, poor use of taxpayer money, and concerns with data sharing.',
-    outcome: Outcome.ContractRejected
-  },
-  {
-    cityState: "Eugene, OR",
-    monthYear: "October 2025",
-    descriptionHtml: 'City council voted unanimously to <a target="_blank" href="https://www.klcc.org/politics-government/2025-10-08/eugene-city-council-asks-to-turn-flock-cameras-off-amidst-fears-of-federal-misuse">pause the use of their Flock system</a> over concerns about data collection, data sharing, and compliance with city policies.',
-    outcome: Outcome.CamerasDeactivated
-  },
-  {
-    cityState: "Stanwood, WA",
-    monthYear: "September 2025",
-    descriptionHtml: 'The City of Stanwood <a target="_blank" href="https://www.goskagit.com/scnews/scnews/stanwood-s-flock-cameras-shut-off-due-to-legal-dispute-over-public-records-access/article_b7e05878-7ed2-4500-bc3b-fd586edc65ba.html">decided to shut off its Flock cameras</a> pending a court judgment on whether data collected by Flock cameras are considered public records.',
-    outcome: Outcome.CamerasDeactivated
-  },
-  {
-    cityState: "Gig Harbor, WA",
-    monthYear: "March 2025",
-    descriptionHtml: 'City council voted against a contract with Flock Safety after <a target="_blank" href="https://www.thenewstribune.com/news/local/community/gateway/g-news/article302729359.html">community members raised concerns</a> about privacy, civil liberties, and data sharing.',
-    outcome: Outcome.ContractRejected
-  },
-  {
-    cityState: "Elbert County, CO",
-    monthYear: "December 2024",
-    descriptionHtml: 'The Elbert County Board of County Commissioners <a target="_blank" href="https://www.denvergazette.com/2024/02/17/big-brother-or-crime-fighter-elbert-county-says-no-to-license-plate-readers-521d798c-caac-11ee-a37b-7b0672ff5019/">unanimously voted not to renew its contract with Flock Safety</a> after concerns of government overreach.',
-    outcome: Outcome.ContractRejected
-  },
-  {
-    cityState: "Eureka, CA",
-    monthYear: "February 2025",
-    descriptionHtml: 'City council <a target="_blank" href="https://lostcoastoutpost.com/2025/feb/5/no-license-plate-reading-cameras/">voted unanimously to reject a contract with Flock Safety</a> after hearing community concerns about privacy, civil liberties, and data sharing with federal agencies.',
-    outcome: Outcome.ContractRejected
-  },
-  {
-    cityState: "Scarsdale, NY",
-    monthYear: "August 2025",
-    descriptionHtml: 'The Village of Scarsdale <a target="_blank" href="https://ij.org/press-release/public-interest-law-firm-applauds-westchester-county-village-for-ending-license-plate-reader-contract/">terminated its contract with Flock Safety</a> after over 450 community members signed a petition, expressing concerns over privacy and the system\'s data sharing practices.',
-    outcome: Outcome.ContractCanceled
-  },
-  {
-    cityState: "Hays County, TX",
-    monthYear: "October 2025",
-    descriptionHtml: 'Hays County commissioners <a target=_blank" href="https://cbsaustin.com/news/local/hays-county-ends-contract-with-flock-cameras-over-privacy-concerns">voted 3-2 to terminate their contract with Flock Safety</a> after public concern for privacy and the risk of their personal information being exposed.',
-    outcome: Outcome.ContractCanceled
-  },
-  {
-    cityState: "Warrenton, VA",
-    monthYear: "October 2025",
-    descriptionHtml: 'The Town of Warrenton <a target="_blank" href="https://www.fauquiernow.com/news/not-on-our-watch-warrenton-town-council-reverses-course-on-license-plate-readers/article_9a1c02ac-5f77-47c7-a270-06f49ab98332.html">voted 5-1 to permanently block consideration of installing ALPRs in their town.</a>',
-    outcome: Outcome.Other
+  { 
+    title: 'Outcome',
+    key: 'Outcome', 
+    width: '35%',
+    sortable: false
   }
-].sort((a, b) => {
-  const [aMonth, aYear] = a.monthYear.split(/\s/);
-  const [bMonth, bYear] = b.monthYear.split(/\s/);
-  const aDate = new Date(`${aMonth} 1, ${aYear}`);
-  const bDate = new Date(`${bMonth} 1, ${bYear}`);
-  return bDate.getTime() - aDate.getTime();
-}); //reverse chron order
+];
+
+// Fetch recent wins from CMS
+const fetchRecentWins = async () => {
+  loading.value = true;
+  try {
+    const response = await fetch('https://cms.deflock.me/items/RecentWins');
+    const result: CMSResponse = (await response.json()).data;
+
+    const sortedResult = result.WinInstances.sort((a, b) => sortMonthYearByDateDesc(a.MonthYear, b.MonthYear));
+
+    citiesRejectingFlock.value = sortedResult;
+    lastUpdated.value = result.date_updated;
+  } catch (error) {
+    console.error('Error fetching recent wins:', error);
+    // Fallback to empty array if fetch fails
+    citiesRejectingFlock.value = [];
+  } finally {
+    loading.value = false;
+  }
+};
+
+// Setup intersection observer for lazy loading
+const setupIntersectionObserver = () => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasLoaded.value) {
+          hasLoaded.value = true;
+          fetchRecentWins();
+          // Disconnect observer after loading once
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
+        }
+      });
+    },
+    {
+      rootMargin: '50px',
+      threshold: 0.1
+    }
+  );
+
+  if (tableRef.value) {
+    observer.observe(tableRef.value);
+  } else {
+    console.warn('tableRef is null, cannot observe element');
+  }
+};
+
+// Setup observer when component mounts
+onMounted(async () => {
+  await nextTick();
+  setupIntersectionObserver();
+});
+
+// Cleanup observer on unmount
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+});
+
+// Format date helper function
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
 
 const videos = [
   {
@@ -569,88 +597,34 @@ const openVideo = (url: string) => {
   padding-bottom: 8px !important;
 }
 
-/* Timeline Styles */
-.timeline-container {
-  position: relative;
-  padding-left: 24px;
+/* Intersection target wrapper */
+.intersection-target {
+  display: block;
+  width: 100%;
+  min-height: 1px;
 }
 
-.timeline-container::before {
-  content: '';
-  position: absolute;
-  left: 24px;
-  top: 24px;
-  bottom: 24px;
-  width: 2px;
-  background: linear-gradient(to bottom, 
-    rgba(var(--v-theme-primary), 0.8) 0%, 
-    rgba(var(--v-theme-primary), 0.6) 50%, 
-    rgba(var(--v-theme-primary), 0.4) 100%);
+/* Data Table Styles */
+.v-data-table {
+  border-radius: 12px !important;
 }
 
-.timeline-item {
-  position: relative;
-  padding-bottom: 32px;
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.4s ease-in-out;
+.v-data-table .v-data-table__th {
+  font-weight: 500 !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
+  opacity: 0.6 !important;
 }
 
-.timeline-item-last {
-  padding-bottom: 0;
+.v-data-table .v-data-table__td {
+  border-bottom: 1px solid rgba(var(--v-border-color), 0.12) !important;
 }
 
-.timeline-marker {
-  position: absolute;
-  left: -24px;
-  top: 0;
-  z-index: 2;
+.v-data-table .v-data-table-header {
+  background-color: rgba(var(--v-theme-primary), 0.05) !important;
 }
 
-.timeline-content {
-  margin-left: 40px;
-}
-
-.timeline-card {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(var(--v-theme-primary), 0.2);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(var(--v-theme-primary), 0.1);
-  transition: all 0.2s ease;
-}
-
-.timeline-card:hover {
-  box-shadow: 0 4px 16px rgba(var(--v-theme-primary), 0.15);
-  border-color: rgba(var(--v-theme-primary), 0.3);
-}
-
-/* Dark theme support */
-.v-theme--dark .timeline-card {
-  background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(var(--v-theme-primary), 0.3);
-}
-
-.v-theme--dark .timeline-card:hover {
-  border-color: rgba(var(--v-theme-primary), 0.4);
-}
-
-@media (max-width: 768px) {
-  .timeline-container {
-    padding-left: 16px;
-  }
-  
-  .timeline-container::before {
-    left: 16px;
-  }
-  
-  .timeline-marker {
-    left: -16px;
-  }
-  
-  .timeline-content {
-    margin-left: 32px;
-  }
+.v-data-table .v-data-table__tr:hover {
+  background-color: rgba(var(--v-theme-primary), 0.04) !important;
 }
 
 /* Video Card Styles */
