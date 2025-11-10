@@ -22,10 +22,8 @@
                   prepend-icon="mdi-apple"
                   :href="appLinks.ios"
                   target="_blank"
-                  :disabled="!appLinks.ios"
                 >
-                  <span v-if="appLinks.ios">Download for iOS</span>
-                  <span v-else>iOS Coming Soon</span>
+                  Download for iOS
                 </v-btn>
                 <v-btn
                   size="large"
@@ -35,22 +33,19 @@
                   prepend-icon="mdi-google-play"
                   :href="appLinks.android"
                   target="_blank"
-                  :disabled="!appLinks.android"
                 >
-                  <span v-if="appLinks.android">Get on Android</span>
-                  <span v-else>Android Coming Soon</span>
+                  Get on Android
                 </v-btn>
 
                 <v-btn
                   size="large"
-                  variant="text"
+                  variant="tonal"
                   color="white"
-                  href="https://blog.deflock.me/deflock-mobile-guide/"
-                  target="_blank"
+                  to="/app/docs"
                   prepend-icon="mdi-book-open-variant"
-                  class="download-btn doc-btn"
+                  class="download-btn mt-8"
                 >
-                  View Mobile App Guide
+                  Read the User Guide
                   <v-icon icon="mdi-open-in-new" size="small" class="ml-1" />
                 </v-btn>
               </div>
@@ -176,7 +171,9 @@
                     <v-icon icon="mdi-lock" color="primary" class="me-3" />
                     {{ principle.title }}
                   </h3>
-                  <p class="principle-description mb-0">{{ principle.description }}</p>
+                  <p class="principle-description mb-0">
+                    <span v-html="principle.description"></span>
+                  </p>
                 </v-card-text>
               </v-card>
             </div>
@@ -201,10 +198,8 @@
               prepend-icon="mdi-apple"
               :href="appLinks.ios"
               target="_blank"
-              :disabled="!appLinks.ios"
             >
-              <span v-if="appLinks.ios">Download for iPhone</span>
-              <span v-else>iOS Coming Soon</span>
+              Download for iPhone
             </v-btn>
             <v-btn
               size="x-large"
@@ -214,10 +209,8 @@
               prepend-icon="mdi-google-play"
               :href="appLinks.android"
               target="_blank"
-              :disabled="!appLinks.android"
             >
-              <span v-if="appLinks.android">Get on Android</span>
-              <span v-else>Android Coming Soon</span>
+              Get on Android
             </v-btn>
           </div>
           <p class="cta-note">Free download • No ads • Privacy focused</p>
@@ -267,7 +260,7 @@ interface PrivacyPrinciple {
 
 const appLinks = {
   android: 'https://play.google.com/store/apps/details?id=me.deflock.deflockapp',
-  ios: undefined,
+  ios: 'https://apps.apple.com/us/app/deflock-me/id6752760780',
 }
 
 // App features
@@ -390,7 +383,7 @@ const privacyPrinciples: PrivacyPrinciple[] = [
   {
     id: 6,
     title: 'Open Source Transparency',
-    description: 'Our code is open source and available for review. You can verify our privacy commitments by examining the source code yourself.'
+    description: 'Our code is <a target="_blank" href="https://github.com/foggedlens/deflock-app">open source</a> and available for review. You can verify our privacy commitments by examining the source code yourself.'
   }
 ];
 
