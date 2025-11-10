@@ -87,6 +87,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/app/docs',
+      name: 'app-docs',
+      component: () => import('../views/DeflockAppDocs.vue'),
+      meta: {
+        title: 'App User Guide | DeFlock'
+      }
+    },
+    {
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue'),
