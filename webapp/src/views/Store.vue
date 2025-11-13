@@ -1,0 +1,315 @@
+<template>
+  <DefaultLayout>
+    <template #header>
+      <Hero
+        title="DeFlock Store"
+        description="Full store coming soon! In the meantime, check out our free Downloads."
+        gradient="linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%)"
+      />
+    </template>
+
+    <v-container>
+      <!-- Loading State -->
+      <div v-if="loading" class="text-center py-8">
+        <v-progress-circular indeterminate color="primary" size="64" />
+        <p class="mt-4 text-grey">Loading printables...</p>
+      </div>
+
+      <!-- Error State -->
+      <v-alert
+        v-else-if="error"
+        type="error"
+        variant="tonal"
+        class="mb-6"
+        closable
+        @click:close="error = null"
+      >
+        <strong>Failed to load printables:</strong> {{ error }}
+      </v-alert>
+
+      <!-- Printables Grid -->
+      <div v-else-if="printables.length > 0">
+        <h2 class="text-h4 mb-6 font-weight-bold text-center">Printables</h2>
+        
+        <!-- Filter Section -->
+        <div class="filter-section mb-6">
+          <v-row justify="center">
+            <v-col cols="12" md="6" lg="4">
+              <v-select
+                v-model="selectedType"
+                :items="typeOptions"
+                label="Filter by type"
+                prepend-inner-icon="mdi-filter"
+                variant="outlined"
+                clearable
+                hide-details
+                class="filter-select"
+              >
+                <template v-slot:item="{ props, item }">
+                  <v-list-item v-bind="props">
+                    <template v-slot:prepend>
+                      <v-icon :color="getTypeColor(item.raw.value)">{{ getTypeIcon(item.raw.value) }}</v-icon>
+                    </template>
+                  </v-list-item>
+                </template>
+                <template v-slot:selection="{ item }">
+                  <div class="d-flex align-center">
+                    <v-icon :color="getTypeColor(item.raw.value)" class="mr-2">{{ getTypeIcon(item.raw.value) }}</v-icon>
+                    <span class="text-capitalize">{{ item.raw.title }}</span>
+                  </div>
+                </template>
+              </v-select>
+            </v-col>
+          </v-row>
+        </div>
+
+        <v-row>
+          <v-col
+            v-for="printable in filteredPrintables"
+            :key="printable.id"
+            cols="12"
+            md="6"
+            lg="4"
+          >
+            <v-card
+              elevation="2"
+              height="100%"
+            >
+              <!-- Preview Image -->
+              <div class="position-relative">
+                <v-img
+                  :src="getImageUrl(printable.preview)"
+                  :alt="`${printable.title} preview`"
+                  aspect-ratio="1.414"
+                  contain
+                >
+                  <template v-slot:placeholder>
+                    <div class="d-flex align-center justify-center fill-height">
+                      <v-progress-circular
+                        color="grey-lighten-4"
+                        indeterminate
+                      />
+                    </div>
+                  </template>
+                  
+                  <!-- Type Badge -->
+                  <v-chip
+                    :color="getTypeColor(printable.type)"
+                    size="small"
+                    class="ma-2 text-capitalize"
+                    style="position: absolute; top: 0; right: 0;"
+                  >
+                    <v-icon start size="small">{{ getTypeIcon(printable.type) }}</v-icon>
+                    {{ printable.type }}
+                  </v-chip>
+                </v-img>
+              </div>
+
+              <!-- Card Content -->
+              <v-card-text class="pb-2">
+                <h3 class="text-h6 font-weight-bold mb-2">
+                  {{ printable.title }}
+                </h3>
+                
+                <div class="d-flex align-center text-caption text-grey mb-3">
+                  <v-icon size="small" class="mr-1">mdi-account</v-icon>
+                  by {{ printable.author }}
+                  <v-tooltip text="Licensed under CC BY-NC 4.0">
+                    <template v-slot:activator="{ props }">
+                      <v-icon 
+                        v-bind="props"
+                        size="small" 
+                        class="ml-1"
+                        color="grey"
+                      >
+                        mdi-creative-commons
+                      </v-icon>
+                    </template>
+                  </v-tooltip>
+                  <v-spacer />
+                  <v-icon size="small" class="mr-1">mdi-clock-outline</v-icon>
+                  {{ formatDate(printable.date_updated) }}
+                </div>
+
+                <!-- Download Options -->
+                <div class="download-section">
+                  <p class="text-body-2 text-grey-darken-1 mb-3">
+                    Download options:
+                  </p>
+                  
+                  <div class="d-flex gap-2">
+                    <v-btn
+                      v-if="printable.front"
+                      :href="getImageUrl(printable.front)"
+                      target="_blank"
+                      download
+                      variant="tonal"
+                      color="primary"
+                      size="small"
+                      prepend-icon="mdi-download"
+                      class="flex-1-1-50"
+                    >
+                      Front Side
+                    </v-btn>
+                    
+                    <v-btn
+                      v-if="printable.back"
+                      :href="getImageUrl(printable.back)"
+                      target="_blank"
+                      download
+                      variant="tonal"
+                      color="secondary"
+                      size="small"
+                      prepend-icon="mdi-download"
+                      class="flex-1-1-50"
+                    >
+                      Back Side
+                    </v-btn>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
+
+      <!-- Empty State -->
+      <div v-else class="text-center py-12">
+        <v-icon size="64" color="grey-lighten-1">mdi-inbox-outline</v-icon>
+        <h3 class="text-h5 mt-4 mb-2 text-grey">No printables available</h3>
+        <p class="text-grey">Check back later for new content!</p>
+      </div>
+    </v-container>
+  </DefaultLayout>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
+import type { Ref } from 'vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import Hero from '@/components/layout/Hero.vue';
+
+// Types
+interface Printable {
+  id: number;
+  date_updated: string;
+  type: string;
+  author: string;
+  preview: string;
+  front: string | null;
+  back: string | null;
+  title: string;
+}
+
+interface CMSResponse {
+  data: Printable[];
+}
+
+// Reactive state
+const printables: Ref<Printable[]> = ref([]);
+const loading = ref(true);
+const error: Ref<string | null> = ref(null);
+const selectedType: Ref<string | null> = ref(null);
+
+// Computed properties
+const typeOptions = computed(() => {
+  const types = [...new Set(printables.value.map(p => p.type))];
+  return types.map(type => ({
+    title: type.charAt(0).toUpperCase() + type.slice(1),
+    value: type
+  }));
+});
+
+const filteredPrintables = computed(() => {
+  if (!selectedType.value) {
+    return printables.value;
+  }
+  return printables.value.filter(printable => printable.type === selectedType.value);
+});
+
+// Methods
+const fetchPrintables = async (): Promise<void> => {
+  try {
+    loading.value = true;
+    error.value = null;
+    
+    const response = await fetch('https://cms.deflock.me/items/Printables');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data: CMSResponse = await response.json();
+    printables.value = data.data || [];
+  } catch (err) {
+    console.error('Error fetching printables:', err);
+    error.value = err instanceof Error ? err.message : 'Failed to load printables';
+  } finally {
+    loading.value = false;
+  }
+};
+
+const getImageUrl = (imageId: string): string => {
+  if (!imageId) return '';
+  return `https://cms.deflock.me/assets/${imageId}`;
+};
+
+const getTypeColor = (type: string): string => {
+  const colors: Record<string, string> = {
+    poster: 'primary',
+    yardSign: 'secondary',
+    sticker: 'accent',
+    bumperSticker: 'info'
+  };
+  return colors[type.toLowerCase()] || 'grey';
+};
+
+const getTypeIcon = (type: string): string => {
+  const icons: Record<string, string> = {
+    poster: 'mdi-post',
+    yardSign: 'mdi-sign-real-estate',
+    sticker: 'mdi-sticker-circle-outline',
+    bumperSticker: 'mdi-rectangle-outline',
+  };
+  return icons[type.toLowerCase()] || 'mdi-file';
+};
+
+const formatDate = (dateString: string): string => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+};
+
+// Lifecycle
+onMounted(() => {
+  fetchPrintables();
+});
+</script>
+
+<style scoped>
+.filter-section {
+  background: rgba(var(--v-theme-surface-variant), 0.1);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.filter-select {
+  max-width: 100%;
+}
+
+.download-section {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 12px;
+  margin-top: 8px;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.flex-1-1-50 {
+  flex: 1 1 50%;
+}
+</style>
