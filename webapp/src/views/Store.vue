@@ -29,7 +29,10 @@
 
       <!-- Printables Grid -->
       <div v-else-if="printables.length > 0">
-        <h2 class="text-h4 mb-6 font-weight-bold text-center">Printables</h2>
+        <h2 class="text-h4 mb-2 font-weight-bold text-center">Printables</h2>
+        <p class="mb-6 text-center">
+          Signs, stickers, zines, and more!
+        </p>
         
         <!-- Filter Section -->
         <div class="filter-section mb-6">
@@ -81,6 +84,7 @@
                   :src="getImageUrl(printable.preview)"
                   :alt="`${printable.title} preview`"
                   aspect-ratio="1.414"
+                  class="mt-4 mx-2"
                   contain
                 >
                   <template v-slot:placeholder>
@@ -91,17 +95,6 @@
                       />
                     </div>
                   </template>
-                  
-                  <!-- Type Badge -->
-                  <v-chip
-                    :color="getTypeColor(printable.type)"
-                    size="small"
-                    class="ma-2 text-capitalize"
-                    style="position: absolute; top: 0; right: 0;"
-                  >
-                    <v-icon start size="small">{{ getTypeIcon(printable.type) }}</v-icon>
-                    {{ printable.type }}
-                  </v-chip>
                 </v-img>
               </div>
 
@@ -110,6 +103,16 @@
                 <h3 class="text-h6 font-weight-bold mb-2">
                   {{ printable.title }}
                 </h3>
+
+                <!-- Type Badge -->
+                <v-chip
+                  :color="getTypeColor(printable.type)"
+                  size="small"
+                  class="text-capitalize mb-2 font-weight-bold"
+                >
+                  <v-icon start size="small">{{ getTypeIcon(printable.type) }}</v-icon>
+                  {{ deCamel(printable.type) }}
+                </v-chip>
                 
                 <div class="d-flex align-center text-caption text-grey mb-3">
                   <v-icon size="small" class="mr-1">mdi-account</v-icon>
@@ -133,10 +136,6 @@
 
                 <!-- Download Options -->
                 <div class="download-section">
-                  <p class="text-body-2 text-grey-darken-1 mb-3">
-                    Download options:
-                  </p>
-                  
                   <div class="d-flex gap-2">
                     <v-btn
                       v-if="printable.front"
@@ -149,7 +148,8 @@
                       prepend-icon="mdi-download"
                       class="flex-1-1-50"
                     >
-                      Front Side
+                      <span v-if="printable.back">Front Side</span>
+                      <span v-else>Download</span>
                     </v-btn>
                     
                     <v-btn
@@ -269,6 +269,10 @@ const fetchPrintables = async (): Promise<void> => {
   }
 };
 
+const deCamel = (str: string): string => {
+  return str.replace(/([a-z])([A-Z])/g, '$1 $2');
+};
+
 const getImageUrl = (imageId: string): string => {
   if (!imageId) return '';
   return `https://cms.deflock.me/assets/${imageId}`;
@@ -277,21 +281,23 @@ const getImageUrl = (imageId: string): string => {
 const getTypeColor = (type: string): string => {
   const colors: Record<string, string> = {
     poster: 'primary',
+    zine: 'success',
     yardSign: 'secondary',
     sticker: 'accent',
     bumperSticker: 'info'
   };
-  return colors[type.toLowerCase()] || 'grey';
+  return colors[type] || 'grey';
 };
 
 const getTypeIcon = (type: string): string => {
   const icons: Record<string, string> = {
     poster: 'mdi-post',
+    zine: 'mdi-book-open-page-variant',
     yardSign: 'mdi-sign-real-estate',
     sticker: 'mdi-sticker-circle-outline',
     bumperSticker: 'mdi-rectangle-outline',
   };
-  return icons[type.toLowerCase()] || 'mdi-file';
+  return icons[type] || 'mdi-file';
 };
 
 const formatDate = (dateString: string): string => {
