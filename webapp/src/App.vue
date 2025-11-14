@@ -37,6 +37,7 @@ const items = [
   { title: 'Home', icon: 'mdi-home', to: '/' },
   { title: 'Map', icon: 'mdi-map', to: '/map' },
   { title: 'Learn', icon: 'mdi-school', to: '/what-is-an-alpr' },
+  { title: 'Store', icon: 'mdi-shopping', to: '/store' },
 ]
 
 const contributeItems = [

@@ -156,6 +156,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/store',
+      name: 'store',
+      component: () => import('../views/Store.vue'),
+      meta: {
+        title: 'Store | DeFlock'
+      }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('../views/404.vue'),
