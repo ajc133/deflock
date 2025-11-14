@@ -179,6 +179,26 @@
         <h3 class="text-h5 mt-4 mb-2 text-grey">No printables available</h3>
         <p class="text-grey">Check back later for new content!</p>
       </div>
+
+      <!-- Submit Artwork Section -->
+      <v-divider class="my-8" />
+      <div class="text-center py-4">
+        <v-btn
+          href="https://forms.gle/bbNdsZ8iKv7VVFYi8"
+          target="_blank"
+          rel="noopener noreferrer"
+          color="primary"
+          variant="outlined"
+          size="large"
+          prepend-icon="mdi-upload"
+          class="text-none"
+        >
+          Submit Your Artwork
+        </v-btn>
+        <p class="text-caption text-grey mt-2">
+          Have anti-ALPR artwork? Share it with the community!
+        </p>
+      </div>
     </v-container>
   </DefaultLayout>
 </template>
