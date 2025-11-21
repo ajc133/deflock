@@ -5,7 +5,7 @@ from typing import Any
 import boto3
 import os
 import time
-import numpy as np
+import math
 import requests
 import re
 from concurrent.futures import ThreadPoolExecutor
@@ -58,8 +58,8 @@ def segment_regions(nodes: Any, tile_size_degrees: int) -> dict[str, list[Any]]:
     tile_dict = defaultdict(list)
     for node in nodes:
         lat, lon = node["lat"], node["lon"]
-        tile_lat = int(np.floor(lat / tile_size_degrees)) * tile_size_degrees
-        tile_lon = int(np.floor(lon / tile_size_degrees)) * tile_size_degrees
+        tile_lat = math.floor(lat / tile_size_degrees) * tile_size_degrees
+        tile_lon = math.floor(lon / tile_size_degrees) * tile_size_degrees
         bare_node = {
             "id": node["id"],
             "lat": lat,
