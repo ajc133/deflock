@@ -102,7 +102,7 @@ interface SimilarProject {
 const similarProjects: SimilarProject[] = [
   {
     name: "Have I Been Flocked?",
-    description: "See if your license plate has been searched in Flock's system, as well as disturbing trends in Flock usage.",
+    description: "See if your license plate has been searched in Flock's system, as well as concerning trends in Flock usage.",
     url: "https://haveibeenflocked.com",
     imageUrl: "/similar-projects/hibf.webp"
   },

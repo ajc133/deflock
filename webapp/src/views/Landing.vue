@@ -30,28 +30,31 @@
   <!-- Dangers Section -->
   <v-container class="py-10 text-center info-section">
 
-    <h2 class="mb-4">What is an ALPR</h2>
+    <h2 class="mb-4">What are ALPRs</h2>
+    
     <p class="text-left px-6">
-      Automated License Plate Readers (ALPRs) are AI-powered cameras that capture and analyze images of all passing vehicles, storing details like your car's location, date, and time. They also capture your car's make, model, color, and identifying features such as dents, roof racks, and bumper stickers, <a href="https://www.flocksafety.com/products/license-plate-readers#:~:text=No%20Plate%3F%20No%20Problem" target="_blank">often turning these into searchable data points</a>. These cameras collect data on millions of vehicles—regardless of whether the driver is suspected of a crime. While these systems can be useful for tracking stolen cars or wanted individuals, they are mostly used to track the movements of innocent people.
+      Automated License Plate Readers (ALPRs or LPRs) are AI-powered cameras that capture and analyze images of <b>all passing vehicles</b>, storing details like your car's <b>location, date, and time</b>. They also capture your car's <b>make, model, color</b>, and <b>identifying features</b> such as dents, roof racks, and bumper stickers, often turning these into <b>searchable data points</b>.
     </p>
+    <p class="text-left px-6">
+      These cameras collect data on millions of vehicles <b>regardless of whether the driver is suspected of a crime</b>. These systems are marketed as indispensable tools to fight crime, but they ignore the powerful tools police already have to track criminals, such as cell phone location data, <b>creating a loophole that doesn't require a warrant</b>.
+    </p>
+
+    <div class="alpr-demo-container my-8">
+      <v-img 
+        max-width="500" 
+        src="/lpr-demo.webp" 
+        class="mx-auto alpr-demo-image" 
+        style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"
+      />
+      <p class="text-caption text-center mt-3 px-4" style="opacity: 0.8; font-style: italic;">
+        Example of an annotated license plate reader photo showing captured vehicle details
+      </p>
+    </div>
 
     <v-divider class="my-8" />
 
     <h2 class="display-2 mb-4">The Dangers of ALPRs</h2>
-    <p class="px-6">
-      ALPRs are a serious risk to your privacy and civil liberties. These systems continuously record people's movements without a warrant, probable cause, or even reasonable suspicion. Your driving history is rarely confined to the town or city where the cameras are installed. It's typically shared with <router-link to="/what-is-an-alpr#faq-transparency">thousands of other agencies nationwide (secretly)</router-link>. Once the data is out of your community, you have no control over how it's used or what rules apply.
-    </p>
-    <p class="px-6 pt-6">
-      Learn more about how Flock, the most popular ALPR vendor<sup>1</sup>, is being used in your community on the independent site:
-      <a target="_blank" href="https://eyesonflock.com" style="text-decoration: underline;">
-        Eyes on Flock
-        <v-icon size="small">mdi-open-in-new</v-icon>
-      </a>.
-    </p>
-    <footer class="serif text-grey-darken-2 mt-4">
-      <small><sup>[1]</sup> This claim is based on an OSM Overpass API query conducted on 11/04/2025</small>
-    </footer>
-    
+
     <v-row class="align-center mt-4">
       <v-col cols="12" md="4" class="text-center">
         <v-card>
@@ -60,7 +63,7 @@
             Privacy Violations
           </v-card-title>
           <v-card-text>
-            ALPRs track your movements and store your data for long periods of time, creating a detailed record of your location history.
+            ALPRs <b>track your movements</b> and <b>store your data</b> for long periods of time, creating a detailed record of <b>your location history.</b>
           </v-card-text>
         </v-card>
       </v-col>
@@ -82,16 +85,54 @@
             Limited Benefits
           </v-card-title>
           <v-card-text>
-            There's no substantial evidence that ALPRs effectively prevent crime, despite <a target="_blank" href="https://www.404media.co/researcher-who-oversaw-flock-surveillance-study-now-has-concerns-about-it/">Flock's unethical attempts</a> to prove otherwise.
+            There's <b>no substantial evidence</b> that ALPRs effectively prevent crime, despite <a target="_blank" href="https://www.404media.co/researcher-who-oversaw-flock-surveillance-study-now-has-concerns-about-it/">Flock's unethical attempts</a> to prove otherwise.
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-    
-    <v-btn class="mt-8" color="rgb(18, 151, 195)" large to="/what-is-an-alpr">
+
+    <p class="px-6 mt-8">
+      ALPRs are a serious risk to your privacy and civil liberties. These systems <b>continuously record your movements without a warrant</b>, probable cause, or even reasonable suspicion. Your driving history is <b>rarely confined</b> to the town or city where the cameras are installed. It's typically shared with <router-link to="/what-is-an-alpr#faq-transparency">thousands of other agencies nationwide (secretly)</router-link>. Once the data is out of your community, you have no control over how it's used or what rules apply, <b>leading to instances of misuse.</b>
+    </p>
+
+    <v-btn class="my-4" color="rgb(18, 151, 195)" large to="/what-is-an-alpr">
       <v-icon start>mdi-book-open-page-variant</v-icon>
       Read More
     </v-btn>
+
+    <v-divider class="my-8" />
+
+    <!-- Flock Investigation Resources -->
+    <div class="flock-resources-section my-8">
+      <h3 class="mb-4">Investigate Flock in Your Community</h3>
+      <p class="mb-6 px-6">
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Flock_Safety">Flock Safety</a> is the most popular ALPR vendor. These independent resources help you understand how Flock cameras are being deployed and used:
+      </p>
+      
+      <div class="text-center">
+        <v-btn 
+          href="https://eyesonflock.com" 
+          target="_blank" 
+          variant="outlined" 
+          color="primary" 
+          class="mx-2 mb-2"
+        >
+          Eyes on Flock
+          <v-icon end>mdi-open-in-new</v-icon>
+        </v-btn>
+        
+        <v-btn 
+          href="https://haveibeenflocked.com" 
+          target="_blank" 
+          variant="outlined" 
+          color="primary" 
+          class="mx-2 mb-2"
+        >
+          Have I Been Flocked?
+          <v-icon end>mdi-open-in-new</v-icon>
+        </v-btn>
+      </div>
+    </div>
   </v-container>
   
   <!-- Map Section -->
@@ -160,6 +201,36 @@
 
 .featured-logo {
   opacity: 0.7;
+}
+
+.alpr-demo-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.alpr-demo-image {
+  transition: transform 0.2s ease;
+}
+
+.alpr-demo-image:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .alpr-demo-container .v-img {
+    max-width: 100% !important;
+    margin: 0 16px;
+  }
+}
+
+.flock-resources-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flock-resource-card {
+  width: 100%;
+  text-decoration: none !important;
 }
 </style>
 
