@@ -5,13 +5,12 @@ from typing import Any
 import boto3
 import os
 import time
-import numpy as np
+import math
 import requests
-from typing import Tuple
 import re
 from concurrent.futures import ThreadPoolExecutor
 
-def terraform_rate_expression_to_minutes(rate_expression: str) -> Tuple[int, int]:
+def terraform_rate_expression_to_minutes(rate_expression: str) -> int:
     match = re.match(r"rate\((\d+)\s*(day|hour|minute)s?\)", rate_expression)
     if not match:
         raise ValueError(f"Invalid rate expression: {rate_expression}")
@@ -26,7 +25,7 @@ def terraform_rate_expression_to_minutes(rate_expression: str) -> Tuple[int, int
         return value
     else:
         raise ValueError(f"Unsupported time unit: {unit}")
-    
+
 UPDATE_RATE_MINS = terraform_rate_expression_to_minutes(os.getenv("UPDATE_RATE_MINS", "rate(60 minutes)"))
 GRACE_PERIOD_MINS = int(2) # XXX: set expiration a few minutes after in case put object takes a while
 TILE_SIZE_DEGREES = int(20)
@@ -54,13 +53,13 @@ def get_all_nodes():
     response.raise_for_status()
     return response.json()["elements"]
 
-def segment_regions(nodes: Any, tile_size_degrees: int) -> dict[Any]:
+def segment_regions(nodes: Any, tile_size_degrees: int) -> dict[str, list[Any]]:
     print("Segmenting regions...")
     tile_dict = defaultdict(list)
     for node in nodes:
         lat, lon = node["lat"], node["lon"]
-        tile_lat = int(np.floor(lat / tile_size_degrees)) * tile_size_degrees
-        tile_lon = int(np.floor(lon / tile_size_degrees)) * tile_size_degrees
+        tile_lat = math.floor(lat / tile_size_degrees) * tile_size_degrees
+        tile_lon = math.floor(lon / tile_size_degrees) * tile_size_degrees
         bare_node = {
             "id": node["id"],
             "lat": lat,
@@ -108,7 +107,7 @@ def lambda_handler(event, context):
             key = f"regions/{lat}/{lon}.json"
             body = json.dumps(elements)
             futures.append(executor.submit(upload_json_to_s3, bucket_new, key, body))
-        
+
         # add index file
         futures.append(executor.submit(upload_json_to_s3, bucket_new, "regions/index.json", json.dumps(tile_index)))
 
