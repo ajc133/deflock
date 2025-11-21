@@ -1,5 +1,6 @@
 <template>
-  <v-container class="mb-16">
+<DefaultLayout>
+  <v-container class="narrow-text">
     <h1>Terms of Service for DeFlock</h1>
     <p>Effective Date: <b>12/26/2024</b></p>
     
@@ -88,14 +89,9 @@
       Email: <a href="mailto:contact@deflock.me">contact@deflock.me</a>
     </p>
   </v-container>
-
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/layout/Footer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 </script>
- 
-<style lang="css" scoped>
-@import url('@/assets/typography.css');
-</style>

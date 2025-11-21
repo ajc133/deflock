@@ -1,375 +1,377 @@
 <template>
-<Hero
-  imageUrl="/city-council.jpg"
-  title="City Council"
-  description="Block ALPRs in your community using the proven technique of petitioning your city or town's council."
-/>
+<DefaultLayout>
+  <template #header>
+    <Hero
+      imageUrl="/city-council.jpg"
+      title="City Council"
+      description="Block ALPRs in your community using the proven technique of petitioning your city or town's council."
+    />
+  </template>
 
-<v-container class="mb-16">
-  <!-- Introduction Section -->
-  <v-row>
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <div class="text-center mb-8">
-        <v-icon size="64" color="var(--df-blue)" class="mb-4">mdi-account-voice</v-icon>
-        <h2 class="text-h4 mb-4 font-weight-bold">Your Voice Matters Locally</h2>
-        <p class="text-h6 text-medium-emphasis serif">
-          City council members rely on us to understand public opinion. Here's your step-by-step guide to effectively advocate
-          against mass surveillance systems with your local representatives.
-        </p>
-      </div>
-    </v-col>
-  </v-row>
+  <v-container>
+    <!-- Introduction Section -->
+    <v-row>
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
+        <div class="text-center mb-8">
+          <v-icon size="64" color="var(--df-blue)" class="mb-4">mdi-account-voice</v-icon>
+          <h2 class="text-h4 mb-4 font-weight-bold">Your Voice Matters Locally</h2>
+          <p class="text-h6 text-medium-emphasis serif">
+            City council members rely on us to understand public opinion. Here's your step-by-step guide to effectively advocate
+            against mass surveillance systems with your local representatives.
+          </p>
+        </div>
+      </v-col>
+    </v-row>
 
-  <!-- Talking Points -->
-  <v-row class="mb-8">
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <v-card 
-        class="pa-4" 
-        elevation="2" 
-        rounded="lg"
-        hover
-        href="https://consumerrights.wiki/w/Common_Questions,_Arguments,_%26_Responses_when_discussing_Flock_Surveillance"
-        target="_blank"
-      >
-        <div class="d-flex align-center justify-space-between">
-          <div class="d-flex align-center">
-            <v-icon color="primary" class="mr-3 align-self-center">mdi-comment-alert</v-icon>
-            <div>
-              <h4 class="text-h6 font-weight-bold mb-1">Talking Points</h4>
-              <p class="text-body-2 mb-0">Common questions, arguments & responses for discussing surveillance</p>
+    <!-- Talking Points -->
+    <v-row class="mb-8">
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
+        <v-card 
+          class="pa-4" 
+          elevation="2" 
+          rounded="lg"
+          hover
+          href="https://consumerrights.wiki/w/Common_Questions,_Arguments,_%26_Responses_when_discussing_Flock_Surveillance"
+          target="_blank"
+        >
+          <div class="d-flex align-center justify-space-between">
+            <div class="d-flex align-center">
+              <v-icon color="primary" class="mr-3 align-self-center">mdi-comment-alert</v-icon>
+              <div>
+                <h4 class="text-h6 font-weight-bold mb-1">Talking Points</h4>
+                <p class="text-body-2 mb-0">Common questions, arguments & responses for discussing surveillance</p>
+              </div>
             </div>
+            <v-icon color="primary" class="align-self-center">mdi-open-in-new</v-icon>
           </div>
-          <v-icon color="primary" class="align-self-center">mdi-open-in-new</v-icon>
-        </div>
-      </v-card>
-    </v-col>
-  </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
 
-  <!-- Step 1: One-on-One Meetings -->
-  <v-row class="mb-12">
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <v-card class="pa-6" elevation="3" rounded="lg">
-        <div class="d-flex align-center mb-4">
-          <v-avatar size="48" color="primary" class="mr-4">
-            <span class="text-h5 font-weight-bold white--text">1</span>
-          </v-avatar>
-          <div>
-            <h3 class="text-h5 font-weight-bold mb-1">Meet Council Members Privately</h3>
-            <p class="text-body-2 text-medium-emphasis mb-0">Start with personal conversations - often the most effective approach</p>
-          </div>
-        </div>
-
-        <p class="text-body-1 mb-4">
-          Personal conversations with council members are often the most effective way to influence their vote. 
-          These private meetings allow for deeper discussion and help them understand the human impact of surveillance policies.
-        </p>
-
-        <v-row>
-          <v-col cols="12" md="6">
-            <h4 class="text-h6 mb-3 d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-calendar-plus</v-icon>
-              How to Schedule
-            </h4>
-            <v-list density="compact">
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Contact their office via phone or email</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Suggest meeting at a local coffee shop or their office</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Request just 15-20 minutes of their time</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Mention you're a constituent concerned about ALPRs</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-col>
-          <v-col cols="12" md="6">
-            <h4 class="text-h6 mb-3 d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-lightbulb-on</v-icon>
-              Meeting Tips
-            </h4>
-            <v-list density="compact">
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Bring a brief printed summary of key points</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Share personal concerns about privacy and community impact</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Ask about their position and listen to their concerns</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Respond to their concerns with your ideas</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-col>
-        </v-row>
-
-        <v-divider class="my-4"></v-divider>
-
-        <div>
-          <h4 class="text-h6 font-weight-bold mb-2">Sample Email Template</h4>
-          <v-card class="pa-4" variant="tonal">
-            <p class="mb-0">
-              Hello [Council Member], I'm a [city] resident concerned about the upcoming 
-              surveillance technology contract. Would you have 15 minutes to discuss this over coffee? I'd love to share some community 
-              concerns and hear your thoughts.
-            </p>
-          </v-card>
-        </div>
-      </v-card>
-    </v-col>
-  </v-row>
-
-  <!-- Step 2: Public Speaking -->
-  <v-row class="mb-12">
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <v-card class="pa-6" elevation="3" rounded="lg">
-        <div class="d-flex align-center mb-4">
-          <v-avatar size="48" color="primary" class="mr-4">
-            <span class="text-h5 font-weight-bold white--text">2</span>
-          </v-avatar>
-          <div>
-            <h3 class="text-h5 font-weight-bold mb-1">Speak at Council Meetings</h3>
-            <p class="text-body-2 text-medium-emphasis mb-0">Create an official record and show public opposition</p>
-          </div>
-        </div>
-
-        <p class="text-body-1 mb-4">
-          Public comment at council meetings creates an official record of community opposition and demonstrates 
-          to council members that constituents are paying attention to their votes on surveillance issues.
-        </p>
-
-        <v-row>
-          <v-col cols="12" md="6">
-            <h4 class="text-h6 mb-3 d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-clock</v-icon>
-              Before the Meeting
-            </h4>
-            <v-list density="compact">
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Check meeting schedule and agenda online</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Sign up for public comment (often required)</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Prepare 2-3 minute statement (practice timing)</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Bring a copy of your statement</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-col>
-          <v-col cols="12" md="6">
-            <h4 class="text-h6 mb-3 d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-presentation</v-icon>
-              During the Meeting
-            </h4>
-            <v-list density="compact">
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Arrive on time or early</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>State your name and connection to the city</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Speak clearly and maintain eye contact</v-list-item-title>
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check">
-                <v-list-item-title>Stay respectful and thank council for their time</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-col>
-        </v-row>
-
-        <v-divider class="my-4"></v-divider>
-
-        <v-alert type="info" variant="tonal" class="mb-4">
-          <strong>Pro Tip:</strong> Focus on how ALPRs affect YOUR community specifically. Personal stories and local examples are more compelling than abstract arguments.
-        </v-alert>
-
-        <!-- Example Videos -->
-        <div class="mt-6">
-          <h4 class="text-h6 font-weight-bold mb-4 d-flex align-center">
-            <v-icon color="primary" class="mr-2">mdi-video</v-icon>
-            Example Speeches
-          </h4>
-          <v-row>
-            <v-col v-for="video in videos" :key="video.url" cols="12" sm="6">
-              <v-card 
-                class="video-card-compact pa-4 d-flex align-center"
-                elevation="2" 
-                rounded="lg"
-                hover
-                @click="openVideo(video.url)"
-              >
-                <v-avatar size="48" color="primary" class="mr-3 video-play-button-compact">
-                  <v-icon size="24" color="white">mdi-play</v-icon>
-                </v-avatar>
-                
-                <div class="flex-grow-1">
-                  <h4 class="text-body-1 font-weight-bold mb-0">{{ video.location }}</h4>
-                  <p class="text-caption text-medium-emphasis mb-0">City Council Meeting</p>
-                </div>
-              </v-card>
-            </v-col>
-          </v-row>
-        </div>
-      </v-card>
-    </v-col>
-  </v-row>
-
-  <!-- Success Stories -->
-  <v-row class="mb-12">
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <div ref="tableRef" class="intersection-target">
+    <!-- Step 1: One-on-One Meetings -->
+    <v-row class="mb-12">
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
         <v-card class="pa-6" elevation="3" rounded="lg">
           <div class="d-flex align-center mb-4">
             <v-avatar size="48" color="primary" class="mr-4">
-              <v-icon size="24" color="white">mdi-trophy</v-icon>
+              <span class="text-h5 font-weight-bold white--text">1</span>
             </v-avatar>
             <div>
-              <h3 class="text-h5 font-weight-bold mb-1">Recent Victories</h3>
-              <p class="text-body-2 text-medium-emphasis mb-0">Communities across the country are winning</p>
+              <h3 class="text-h5 font-weight-bold mb-1">Meet Council Members Privately</h3>
+              <p class="text-body-2 text-medium-emphasis mb-0">Start with personal conversations - often the most effective approach</p>
             </div>
           </div>
-        
-        <v-data-table
-          :headers="headers"
-          :items="citiesRejectingFlock"
-          :loading="loading"
-          :items-per-page="10"
-          :items-per-page-options="[10, 25, 50]"
-          class="elevation-0"
-          density="comfortable"
-          hover
-          show-expand
-          item-value="cityState"
-        >
-          <template v-slot:header.cityState="{ column }">
-            <div class="d-flex align-center text-medium-emphasis">
-              <v-icon icon="mdi-map-marker" size="18" class="mr-2" />
-              <span class="text-caption font-weight-medium">{{ column.title }}</span>
-            </div>
-          </template>
 
-          <template v-slot:header.MonthYear="{ column }">
-            <div class="d-flex align-center text-medium-emphasis">
-              <v-icon icon="mdi-calendar-month" size="18" class="mr-2" />
-              <span class="text-caption font-weight-medium">{{ column.title }}</span>
-            </div>
-          </template>
-
-          <template v-slot:header.Outcome="{ column }">
-            <div class="d-flex align-center text-medium-emphasis">
-              <v-icon icon="mdi-trophy-outline" size="18" class="mr-2" />
-              <span class="text-caption font-weight-medium">{{ column.title }}</span>
-            </div>
-          </template>
-
-          <template v-slot:item.data-table-expand="{ internalItem, isExpanded, toggleExpand }">
-            <v-btn
-              :append-icon="isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-              :text="isExpanded(internalItem) ? 'Collapse' : 'More info'"
-              class="text-none"
-              color="medium-emphasis"
-              size="small"
-              variant="text"
-              border
-              slim
-              @click="toggleExpand(internalItem)"
-            />
-          </template>
-
-          <template v-slot:expanded-row="{ columns, item }">
-            <tr>
-              <td :colspan="columns.length" class="pa-4">
-                <div v-html="item.description" class="text-body-1" style="line-height: 1.6;"></div>
-              </td>
-            </tr>
-          </template>
-
-          <template v-slot:item.cityState="{ item }">
-            <span class="font-weight-bold">{{ item.cityState }}</span>
-          </template>
-          
-          <template v-slot:item.MonthYear="{ item }">
-            {{ item.MonthYear }}
-          </template>
-          
-          <template v-slot:item.Outcome="{ item }">
-            <v-icon icon="mdi-check-bold" size="18" class="mr-2" />
-            <span class="font-weight-bold">{{ item.Outcome }}</span>
-          </template>
-          
-          <template v-slot:loading>
-            <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
-          </template>
-          
-          <template v-slot:no-data>
-            <div class="text-center py-8">
-              <v-icon size="48" color="grey-lighten-1" class="mb-4">mdi-database-off</v-icon>
-              <div class="text-h6 text-medium-emphasis">No victories found</div>
-              <div class="text-body-2 text-medium-emphasis mt-2">
-                Check your connection and try again
-              </div>
-              <v-btn
-                @click="fetchRecentWins"
-                color="primary"
-                variant="outlined"
-                class="mt-4"
-                prepend-icon="mdi-refresh"
-              >
-                Retry
-              </v-btn>
-            </div>
-          </template>
-        </v-data-table>
-
-        <div v-if="lastUpdated" class="mt-4 text-caption text-medium-emphasis text-center">
-          Last updated: {{ formatDate(lastUpdated) }}
-        </div>
-        </v-card>
-      </div>
-    </v-col>
-  </v-row>
-
-  <!-- Community Support Section -->
-  <v-row>
-    <v-col cols="12" md="10" lg="8" class="mx-auto">
-      <v-card class="pa-6" elevation="3" rounded="lg" color="primary" variant="tonal">
-        <div class="text-center">
-          <v-icon size="64" color="primary" class="mb-4">mdi-comment-question</v-icon>
-          <h3 class="text-h4 font-weight-bold mb-4">Need Help or Have Questions?</h3>
-          <p class="text-h6 mb-6 serif">
-            Join our supportive community of activists and experienced speakers who are ready to help you succeed.
+          <p class="text-body-1 mb-4">
+            Personal conversations with council members are often the most effective way to influence their vote. 
+            These private meetings allow for deeper discussion and help them understand the human impact of surveillance policies.
           </p>
-          
-          <v-btn
-            href="https://discord.gg/aV7v4R3sKT"
-            target="_blank"
-            size="large"
-            color="primary"
-            class="mr-4 mb-4"
-            prepend-icon="mdi-discord"
-          >
-            Join #campaigning Channel
-          </v-btn>
-        </div>
-      </v-card>
-    </v-col>
-  </v-row>
-</v-container>
 
-<Footer/>
+          <v-row>
+            <v-col cols="12" md="6">
+              <h4 class="text-h6 mb-3 d-flex align-center">
+                <v-icon color="primary" class="mr-2">mdi-calendar-plus</v-icon>
+                How to Schedule
+              </h4>
+              <v-list density="compact">
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Contact their office via phone or email</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Suggest meeting at a local coffee shop or their office</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Request just 15-20 minutes of their time</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Mention you're a constituent concerned about ALPRs</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-col>
+            <v-col cols="12" md="6">
+              <h4 class="text-h6 mb-3 d-flex align-center">
+                <v-icon color="primary" class="mr-2">mdi-lightbulb-on</v-icon>
+                Meeting Tips
+              </h4>
+              <v-list density="compact">
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Bring a brief printed summary of key points</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Share personal concerns about privacy and community impact</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Ask about their position and listen to their concerns</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Respond to their concerns with your ideas</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-col>
+          </v-row>
+
+          <v-divider class="my-4"></v-divider>
+
+          <div>
+            <h4 class="text-h6 font-weight-bold mb-2">Sample Email Template</h4>
+            <v-card class="pa-4" variant="tonal">
+              <p class="mb-0">
+                Hello [Council Member], I'm a [city] resident concerned about the upcoming 
+                surveillance technology contract. Would you have 15 minutes to discuss this over coffee? I'd love to share some community 
+                concerns and hear your thoughts.
+              </p>
+            </v-card>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Step 2: Public Speaking -->
+    <v-row class="mb-12">
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
+        <v-card class="pa-6" elevation="3" rounded="lg">
+          <div class="d-flex align-center mb-4">
+            <v-avatar size="48" color="primary" class="mr-4">
+              <span class="text-h5 font-weight-bold white--text">2</span>
+            </v-avatar>
+            <div>
+              <h3 class="text-h5 font-weight-bold mb-1">Speak at Council Meetings</h3>
+              <p class="text-body-2 text-medium-emphasis mb-0">Create an official record and show public opposition</p>
+            </div>
+          </div>
+
+          <p class="text-body-1 mb-4">
+            Public comment at council meetings creates an official record of community opposition and demonstrates 
+            to council members that constituents are paying attention to their votes on surveillance issues.
+          </p>
+
+          <v-row>
+            <v-col cols="12" md="6">
+              <h4 class="text-h6 mb-3 d-flex align-center">
+                <v-icon color="primary" class="mr-2">mdi-clock</v-icon>
+                Before the Meeting
+              </h4>
+              <v-list density="compact">
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Check meeting schedule and agenda online</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Sign up for public comment (often required)</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Prepare 2-3 minute statement (practice timing)</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Bring a copy of your statement</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-col>
+            <v-col cols="12" md="6">
+              <h4 class="text-h6 mb-3 d-flex align-center">
+                <v-icon color="primary" class="mr-2">mdi-presentation</v-icon>
+                During the Meeting
+              </h4>
+              <v-list density="compact">
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Arrive on time or early</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>State your name and connection to the city</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Speak clearly and maintain eye contact</v-list-item-title>
+                </v-list-item>
+                <v-list-item prepend-icon="mdi-check">
+                  <v-list-item-title>Stay respectful and thank council for their time</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-col>
+          </v-row>
+
+          <v-divider class="my-4"></v-divider>
+
+          <v-alert type="info" variant="tonal" class="mb-4">
+            <strong>Pro Tip:</strong> Focus on how ALPRs affect YOUR community specifically. Personal stories and local examples are more compelling than abstract arguments.
+          </v-alert>
+
+          <!-- Example Videos -->
+          <div class="mt-6">
+            <h4 class="text-h6 font-weight-bold mb-4 d-flex align-center">
+              <v-icon color="primary" class="mr-2">mdi-video</v-icon>
+              Example Speeches
+            </h4>
+            <v-row>
+              <v-col v-for="video in videos" :key="video.url" cols="12" sm="6">
+                <v-card 
+                  class="video-card-compact pa-4 d-flex align-center"
+                  elevation="2" 
+                  rounded="lg"
+                  hover
+                  @click="openVideo(video.url)"
+                >
+                  <v-avatar size="48" color="primary" class="mr-3 video-play-button-compact">
+                    <v-icon size="24" color="white">mdi-play</v-icon>
+                  </v-avatar>
+                  
+                  <div class="flex-grow-1">
+                    <h4 class="text-body-1 font-weight-bold mb-0">{{ video.location }}</h4>
+                    <p class="text-caption text-medium-emphasis mb-0">City Council Meeting</p>
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Success Stories -->
+    <v-row class="mb-12">
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
+        <div ref="tableRef" class="intersection-target">
+          <v-card class="pa-6" elevation="3" rounded="lg">
+            <div class="d-flex align-center mb-4">
+              <v-avatar size="48" color="primary" class="mr-4">
+                <v-icon size="24" color="white">mdi-trophy</v-icon>
+              </v-avatar>
+              <div>
+                <h3 class="text-h5 font-weight-bold mb-1">Recent Victories</h3>
+                <p class="text-body-2 text-medium-emphasis mb-0">Communities across the country are winning</p>
+              </div>
+            </div>
+          
+          <v-data-table
+            :headers="headers"
+            :items="citiesRejectingFlock"
+            :loading="loading"
+            :items-per-page="10"
+            :items-per-page-options="[10, 25, 50]"
+            class="elevation-0"
+            density="comfortable"
+            hover
+            show-expand
+            item-value="cityState"
+          >
+            <template v-slot:header.cityState="{ column }">
+              <div class="d-flex align-center text-medium-emphasis">
+                <v-icon icon="mdi-map-marker" size="18" class="mr-2" />
+                <span class="text-caption font-weight-medium">{{ column.title }}</span>
+              </div>
+            </template>
+
+            <template v-slot:header.MonthYear="{ column }">
+              <div class="d-flex align-center text-medium-emphasis">
+                <v-icon icon="mdi-calendar-month" size="18" class="mr-2" />
+                <span class="text-caption font-weight-medium">{{ column.title }}</span>
+              </div>
+            </template>
+
+            <template v-slot:header.Outcome="{ column }">
+              <div class="d-flex align-center text-medium-emphasis">
+                <v-icon icon="mdi-trophy-outline" size="18" class="mr-2" />
+                <span class="text-caption font-weight-medium">{{ column.title }}</span>
+              </div>
+            </template>
+
+            <template v-slot:item.data-table-expand="{ internalItem, isExpanded, toggleExpand }">
+              <v-btn
+                :append-icon="isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                :text="isExpanded(internalItem) ? 'Collapse' : 'More info'"
+                class="text-none"
+                color="medium-emphasis"
+                size="small"
+                variant="text"
+                border
+                slim
+                @click="toggleExpand(internalItem)"
+              />
+            </template>
+
+            <template v-slot:expanded-row="{ columns, item }">
+              <tr>
+                <td :colspan="columns.length" class="pa-4">
+                  <div v-html="item.description" class="text-body-1" style="line-height: 1.6;"></div>
+                </td>
+              </tr>
+            </template>
+
+            <template v-slot:item.cityState="{ item }">
+              <span class="font-weight-bold">{{ item.cityState }}</span>
+            </template>
+            
+            <template v-slot:item.MonthYear="{ item }">
+              {{ item.MonthYear }}
+            </template>
+            
+            <template v-slot:item.Outcome="{ item }">
+              <v-icon icon="mdi-check-bold" size="18" class="mr-2" />
+              <span class="font-weight-bold">{{ item.Outcome }}</span>
+            </template>
+            
+            <template v-slot:loading>
+              <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
+            
+            <template v-slot:no-data>
+              <div class="text-center py-8">
+                <v-icon size="48" color="grey-lighten-1" class="mb-4">mdi-database-off</v-icon>
+                <div class="text-h6 text-medium-emphasis">No victories found</div>
+                <div class="text-body-2 text-medium-emphasis mt-2">
+                  Check your connection and try again
+                </div>
+                <v-btn
+                  @click="fetchRecentWins"
+                  color="primary"
+                  variant="outlined"
+                  class="mt-4"
+                  prepend-icon="mdi-refresh"
+                >
+                  Retry
+                </v-btn>
+              </div>
+            </template>
+          </v-data-table>
+
+          <div v-if="lastUpdated" class="mt-4 text-caption text-medium-emphasis text-center">
+            Last updated: {{ formatDate(lastUpdated) }}
+          </div>
+          </v-card>
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- Community Support Section -->
+    <v-row>
+      <v-col cols="12" md="10" lg="8" class="mx-auto">
+        <v-card class="pa-6" elevation="3" rounded="lg" color="primary" variant="tonal">
+          <div class="text-center">
+            <v-icon size="64" color="primary" class="mb-4">mdi-comment-question</v-icon>
+            <h3 class="text-h4 font-weight-bold mb-4">Need Help or Have Questions?</h3>
+            <p class="text-h6 mb-6 serif">
+              Join our supportive community of activists and experienced speakers who are ready to help you succeed.
+            </p>
+            
+            <v-btn
+              href="https://discord.gg/aV7v4R3sKT"
+              target="_blank"
+              size="large"
+              color="primary"
+              class="mr-4 mb-4"
+              prepend-icon="mdi-discord"
+            >
+              Join #campaigning Channel
+            </v-btn>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Hero from '@/components/layout/Hero.vue';
-import Footer from '@/components/layout/Footer.vue';
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const sortMonthYearByDateDesc = (a: string, b: string) => {

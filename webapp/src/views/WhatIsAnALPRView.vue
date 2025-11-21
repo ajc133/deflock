@@ -1,8 +1,11 @@
 <template>
-  <Hero
-    image-url="/flock-camera.jpeg"
-    :opacity="0"
-  />
+<DefaultLayout>
+  <template #header>
+    <Hero
+      image-url="/flock-camera.jpeg"
+      :opacity="0"
+    />
+  </template>
   
   <v-container class="info-section mb-16">
     <h1 class="mt-0">What are ALPRs?</h1>
@@ -43,20 +46,18 @@
     
     <SimilarProjects id="similar" />
   </v-container>
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Hero from '@/components/layout/Hero.vue';
 import Dangers from '@/components/Dangers.vue';
 import FAQ from '@/components/FAQ.vue';
-import Footer from '@/components/layout/Footer.vue';
 import SimilarProjects from '@/components/SimilarProjects.vue';
 </script>
 
 <style scoped>
-@import url('@/assets/typography.css');
-
 h1, h2 {
   text-align: center;
 }

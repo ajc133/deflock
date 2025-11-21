@@ -1,5 +1,6 @@
 <template>
-  <v-container class="mb-16">
+<DefaultLayout>
+  <v-container class="narrow-text">
     <h1>Privacy Policy</h1>
     <p>Effective Date: <b>1/4/2025</b></p>
 
@@ -35,14 +36,9 @@
       We may update this privacy policy from time to time to reflect changes in our practices or for legal compliance. The "Effective Date" above will indicate when the latest changes were made.
     </p>
   </v-container>
-
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/layout/Footer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 </script>
- 
-<style lang="css" scoped>
-@import url('@/assets/typography.css');
-</style>

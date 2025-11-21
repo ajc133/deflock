@@ -1,10 +1,12 @@
 <template>
-  <!-- Hero Section -->
-  <Hero 
-    title="Spot an ALPR"
-    description="Visual guide to identifying license plate readers"
-    gradient="linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%)"
-  />
+<DefaultLayout>
+  <template #header>
+    <Hero 
+      title="Spot an ALPR"
+      description="Visual guide to identifying license plate readers"
+      gradient="linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%)"
+    />
+  </template>
 
   <v-container fluid>
     <!-- Flock Safety - Featured Section -->
@@ -151,13 +153,12 @@
       </v-card>
     </v-container>
   </v-container>
-
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Hero from '@/components/layout/Hero.vue';
-import Footer from '@/components/layout/Footer.vue';
 
 function openImageInNewTab(url: string) {
   window.open(url, '_blank');

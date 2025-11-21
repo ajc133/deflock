@@ -1,4 +1,5 @@
 <template>
+<DefaultLayout no-bottom-margin>
   <div class="app-page">
     <!-- Hero Section -->
     <section class="hero-section">
@@ -218,11 +219,11 @@
       </v-container>
     </section>
   </div>
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/layout/Footer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ref, computed } from 'vue';
 
 interface Feature {

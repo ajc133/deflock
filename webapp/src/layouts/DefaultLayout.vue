@@ -3,7 +3,7 @@
     <slot name="header" />
 
     <!-- Main content -->
-    <main class="mb-16">
+    <main :class="{ 'mb-16': !noBottomMargin }">
       <slot />
     </main>
 
@@ -14,4 +14,11 @@
 
 <script setup lang="ts">
 import Footer from '../components/layout/Footer.vue'
+
+defineProps({
+  noBottomMargin: {
+    type: Boolean,
+    default: false,
+  },
+})
 </script>

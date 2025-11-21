@@ -1,111 +1,113 @@
 <template>
-<Hero 
-    title="App User Guide"
-    description="Learn how to use the Deflock app."
-    gradient="linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%)"
-/>
+<DefaultLayout>
+  <template #header>
+    <Hero 
+        title="App User Guide"
+        description="Learn how to use the Deflock app."
+        gradient="linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%)"
+    />
+  </template>
 
-<v-container class="documentation-content" fluid>
-  <div class="content-wrapper">
-    <v-row>
-      <!-- Desktop TOC Sidebar Column -->
-      <v-col 
-        v-if="!loading && !error && tocItems.length > 0" 
-        cols="12" 
-        md="3" 
-        lg="3" 
-        xl="2"
-        class="d-none d-md-block toc-column"
-      >
-      <v-card class="toc-sidebar" elevation="1" sticky>
-        <v-card-title class="text-h6 py-3">
-          <v-icon start>mdi-format-list-bulleted</v-icon>
-          Table of Contents
-        </v-card-title>
-        <v-divider />
-        <v-card-text class="py-2 toc-scrollable">
-          <nav class="toc-desktop">
-            <template v-for="item in tocItems" :key="item.id">
-              <div class="toc-item" :class="`toc-level-${item.level}`">
-                <button
-                  @click="scrollToSection(item.id)"
-                  class="toc-link"
-                  :class="{ 'toc-active': activeSection === item.id }"
-                >
-                  <span class="toc-text">{{ item.text }}</span>
-                </button>
-              </div>
-              
-              <!-- Render children recursively -->
-              <template v-if="item.children && item.children.length > 0">
-                <template v-for="child in item.children" :key="child.id">
-                  <div class="toc-item" :class="`toc-level-${child.level}`">
-                    <button
-                      @click="scrollToSection(child.id)"
-                      class="toc-link"
-                      :class="{ 'toc-active': activeSection === child.id }"
-                    >
-                      <span class="toc-text">{{ child.text }}</span>
-                    </button>
-                  </div>
-                  
-                  <!-- Third level -->
-                  <template v-if="child.children && child.children.length > 0">
-                    <div 
-                      v-for="grandchild in child.children" 
-                      :key="grandchild.id"
-                      class="toc-item" 
-                      :class="`toc-level-${grandchild.level}`"
-                    >
+  <v-container class="documentation-content" fluid>
+    <div class="content-wrapper">
+      <v-row>
+        <!-- Desktop TOC Sidebar Column -->
+        <v-col 
+          v-if="!loading && !error && tocItems.length > 0" 
+          cols="12" 
+          md="3" 
+          lg="3" 
+          xl="2"
+          class="d-none d-md-block toc-column"
+        >
+        <v-card class="toc-sidebar" elevation="1" sticky>
+          <v-card-title class="text-h6 py-3">
+            <v-icon start>mdi-format-list-bulleted</v-icon>
+            Table of Contents
+          </v-card-title>
+          <v-divider />
+          <v-card-text class="py-2 toc-scrollable">
+            <nav class="toc-desktop">
+              <template v-for="item in tocItems" :key="item.id">
+                <div class="toc-item" :class="`toc-level-${item.level}`">
+                  <button
+                    @click="scrollToSection(item.id)"
+                    class="toc-link"
+                    :class="{ 'toc-active': activeSection === item.id }"
+                  >
+                    <span class="toc-text">{{ item.text }}</span>
+                  </button>
+                </div>
+                
+                <!-- Render children recursively -->
+                <template v-if="item.children && item.children.length > 0">
+                  <template v-for="child in item.children" :key="child.id">
+                    <div class="toc-item" :class="`toc-level-${child.level}`">
                       <button
-                        @click="scrollToSection(grandchild.id)"
+                        @click="scrollToSection(child.id)"
                         class="toc-link"
-                        :class="{ 'toc-active': activeSection === grandchild.id }"
+                        :class="{ 'toc-active': activeSection === child.id }"
                       >
-                        <span class="toc-text">{{ grandchild.text }}</span>
+                        <span class="toc-text">{{ child.text }}</span>
                       </button>
                     </div>
+                    
+                    <!-- Third level -->
+                    <template v-if="child.children && child.children.length > 0">
+                      <div 
+                        v-for="grandchild in child.children" 
+                        :key="grandchild.id"
+                        class="toc-item" 
+                        :class="`toc-level-${grandchild.level}`"
+                      >
+                        <button
+                          @click="scrollToSection(grandchild.id)"
+                          class="toc-link"
+                          :class="{ 'toc-active': activeSection === grandchild.id }"
+                        >
+                          <span class="toc-text">{{ grandchild.text }}</span>
+                        </button>
+                      </div>
+                    </template>
                   </template>
                 </template>
               </template>
-            </template>
-          </nav>
-        </v-card-text>
-      </v-card>
-    </v-col>
+            </nav>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-    <!-- Main Content Column -->
-    <v-col 
-      :cols="12"
-      :md="(!loading && !error && tocItems.length > 0) ? 9 : 12"
-      :lg="(!loading && !error && tocItems.length > 0) ? 9 : 12"
-      :xl="(!loading && !error && tocItems.length > 0) ? 10 : 12"
-      class="content-column"
-    >
-      <div v-if="loading" class="text-center my-8">
-        <v-progress-circular indeterminate color="primary" size="64" />
-        <p class="mt-4">Loading user guide...</p>
-      </div>
-      
-      <div v-else-if="error" class="text-center my-8">
-        <v-alert type="error" variant="tonal" class="mb-4">
-          Failed to load user guide: {{ error }}
-        </v-alert>
-      </div>
-      
-      <article v-else-if="content" class="docs-content" v-html="content" />
-    </v-col>
-  </v-row>
-  </div>
-</v-container>
-
-<Footer />
+      <!-- Main Content Column -->
+      <v-col 
+        :cols="12"
+        :md="(!loading && !error && tocItems.length > 0) ? 9 : 12"
+        :lg="(!loading && !error && tocItems.length > 0) ? 9 : 12"
+        :xl="(!loading && !error && tocItems.length > 0) ? 10 : 12"
+        class="content-column"
+      >
+        <div v-if="loading" class="text-center my-8">
+          <v-progress-circular indeterminate color="primary" size="64" />
+          <p class="mt-4">Loading user guide...</p>
+        </div>
+        
+        <div v-else-if="error" class="text-center my-8">
+          <v-alert type="error" variant="tonal" class="mb-4">
+            Failed to load user guide: {{ error }}
+          </v-alert>
+        </div>
+        
+        <article v-else-if="content" class="docs-content" v-html="content" />
+      </v-col>
+    </v-row>
+    </div>
+  </v-container>
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick, watch } from 'vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Hero from '@/components/layout/Hero.vue';
-import Footer from '@/components/layout/Footer.vue';
 
 interface CMSResponse {
   data: {
@@ -271,8 +273,6 @@ watch(content, () => {
 </script>
 
 <style scoped>
-@import url('@/assets/typography.css');
-
 /* Container styles */
 .documentation-content {
   padding: 2rem 0;

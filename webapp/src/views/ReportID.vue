@@ -1,11 +1,14 @@
 <template>
-  <Hero
-    imageUrl="/id.webp"
-    title="Submit Cameras" 
-    description="Add or edit ALPRs using OSM's powerful web-based editor."
-  />
+<DefaultLayout>
+  <template #header>
+    <Hero
+      imageUrl="/id.webp"
+      title="Submit Cameras" 
+      description="Add or edit ALPRs using OSM's powerful web-based editor."
+    />
+  </template>
 
-  <v-container class="mb-16">
+  <v-container>
     <h1 class="text-center">
       Editing the Map
     </h1>
@@ -47,7 +50,18 @@
             Once you've found the location of the ALPR, click the <strong>Edit</strong> button in the top left corner of the page. This will open the OpenStreetMap editor, where you can add the ALPR to the map.
           </p>
           <v-img max-width="450" src="/edit-map.png" class="my-8" />
-          <p class="mt-16 mb-8">
+
+          <v-alert
+            variant="tonal"
+            type="warning"
+            class="mt-16 mb-6"
+          >
+            <p>
+              Add cameras as <strong>standalone points only</strong>! Do not connect them to roads, buildings, or other objects. Place the point exactly where the camera is physically located, but keep it as an independent point on the map.
+            </p>
+          </v-alert>
+
+          <p class="mb-8">
             To add the ALPR, click the <strong>Point</strong> button at the top center of the editor, then click on the location of the ALPR on the map. In the popup that appears, paste one of the following sets of tags based on the brand of the ALPR:
           </p>
 
@@ -113,9 +127,11 @@
       </template>
     </v-stepper-vertical>
   </v-container>
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Hero from '@/components/layout/Hero.vue';
 import { ref, onMounted, watch } from 'vue';
 import OSMTagSelector from '@/components/OSMTagSelector.vue';

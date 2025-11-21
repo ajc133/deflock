@@ -50,15 +50,15 @@
 
         <!-- Copyright -->
         <v-col
-          class="text-center serif copyright d-flex align-center justify-center text-grey-darken-1"
+          class="text-center d-flex align-center justify-center text-grey-darken-1"
           cols="12"
           sm="6"
         >
-        <div>
-          <p>&copy; {{ currentYear }} DeFlock. All Rights Reserved</p>
-          <p>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" style="color: unset; font-weight: normal;">OpenStreetMap contributors</a></p>
-          <p class="mt-4">v1.1.0</p>
-        </div>
+          <div class="copyright">
+            <p>&copy; {{ currentYear }} DeFlock. All Rights Reserved</p>
+            <p>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" style="color: unset; font-weight: normal;">OpenStreetMap contributors</a></p>
+            <p class="mt-4">v1.1.0</p>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -66,7 +66,6 @@
 </template>
 
 <script setup lang="ts">
-import { icon } from 'leaflet';
 import { computed } from 'vue';
 import { useTheme } from 'vuetify';
 const theme = useTheme();
@@ -92,7 +91,8 @@ const externalLinks = [
 .custom-icon {
   opacity: var(--v-medium-emphasis-opacity);
 }
-.copyright {
+.copyright p {
   font-size: 0.85rem;
+  line-height: 0.5rem;
 }
 </style>

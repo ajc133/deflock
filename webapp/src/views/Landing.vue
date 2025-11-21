@@ -1,29 +1,31 @@
 <template>
-  <!-- Hero Section -->
-  <v-container fluid class="hero-section">
-    <v-row justify="center">
-      <v-col cols="12" md="8" class="text-center">
-        <h1 class="display-1 px-8">You're Being Tracked</h1>
-        
-        <ALPRCounter class="my-6" />
-        
-        <!-- Featured On Section -->
-        <v-container class="featured-on-section my-8">
-          <h4 class="mb-4" style="opacity: 0.8">Featured On</h4>
-          <v-row justify="center" align-items="center">
-            <v-card v-for="site in featuredOn" flat target="_blank" :href="site.url" class="mx-4" :width="site.wide ? 200 : 100" height="50" style="background: rgba(0,0,0,0)">
-              <v-img contain :src="site.logo" :alt="site.name" class="featured-logo" style="display: flex; align-items: center; height: 100%;" />
-            </v-card>
-          </v-row>
-        </v-container>
-
-        <v-btn size="large" color="rgb(18, 151, 195)" large @click="goToMap({ withCurrentLocation: true })">
-          Explore the Map
-          <v-icon end>mdi-map</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+<DefaultLayout no-bottom-margin>
+  <template #header>
+    <v-container fluid class="hero-section">
+      <v-row justify="center">
+        <v-col cols="12" md="8" class="text-center">
+          <h1 class="display-1 px-8">You're Being Tracked</h1>
+          
+          <ALPRCounter class="my-6" />
+          
+          <!-- Featured On Section -->
+          <v-container class="featured-on-section my-8">
+            <h4 class="mb-4" style="opacity: 0.8">Featured On</h4>
+            <v-row justify="center" align-items="center">
+              <v-card v-for="site in featuredOn" flat target="_blank" :href="site.url" class="mx-4" :width="site.wide ? 200 : 100" height="50" style="background: rgba(0,0,0,0)">
+                <v-img contain :src="site.logo" :alt="site.name" class="featured-logo" style="display: flex; align-items: center; height: 100%;" />
+              </v-card>
+            </v-row>
+          </v-container>
+  
+          <v-btn size="large" color="rgb(18, 151, 195)" large @click="goToMap({ withCurrentLocation: true })">
+            Explore the Map
+            <v-icon end>mdi-map</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </template>
   
   <!-- Dangers Section -->
   <v-container class="py-10 text-center info-section">
@@ -100,8 +102,7 @@
       <v-icon end>mdi-map</v-icon>
     </v-btn>
   </v-container>
-  
-  <Footer />
+</DefaultLayout>
 </template>
 
 <style>
@@ -167,7 +168,7 @@
 import { useRouter } from 'vue-router';
 import ALPRCounter from '@/components/ALPRCounter.vue';
 import { useGlobalStore } from '@/stores/global';
-import Footer from '@/components/layout/Footer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const router = useRouter();
 const { setCurrentLocation } = useGlobalStore();

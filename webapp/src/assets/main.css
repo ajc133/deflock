@@ -1,26 +1,65 @@
+/* Modern CSS Custom Properties */
+:root {
+  --df-background-color: white;
+  --df-blue: rgb(18, 151, 195);
+  
+  /* Modern Typography Scale */
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  
+  /* Responsive font sizes */
+  --font-size-body: clamp(1rem, 2.5vw, 1.125rem);
+  --line-height-base: 1.6;
+  --line-height-relaxed: 1.75;
+  
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+
+/* Improved base typography */
+html {
+  font-size: 16px; /* Base font size for rem calculations */
+}
+
+body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Modern link styles */
 a {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--df-blue);
   text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--df-blue) 80%, black);
 }
 
 /* underline only simple <a> elements */
 a:not([class]):hover {
   text-decoration: underline;
-}
-
-:root {
-  --df-background-color: white;
-  --df-text-color: #ccc;
-  --df-blue: rgb(18, 151, 195);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip, .leaflet-bar a {
   background: var(--df-background-color) !important;
-}
-
-.leaflet-bar a {
-  color: var(--df-text-color) !important;
 }
 
 .marker-cluster span {
@@ -28,17 +67,103 @@ a:not([class]):hover {
   color: #000000 !important;
 }
 
-p {
-  font-family: "PT Serif", serif;
-  /* font-size: 1.1em; */
+/* Content elements use serif for better readability */
+p, li, blockquote, .content {
+  font-family: "PT Serif", Georgia, "Times New Roman", serif;
 }
 
+/* Modern paragraph styling */
+p {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
+  margin: var(--space-md) 0;
+}
+
+/* Responsive headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+/* Reduce heading top margins in Vuetify components */
+.v-card h1, .v-card h2, .v-card h3, .v-card h4, .v-card h5, .v-card h6, .v-card p,
+.v-dialog h1, .v-dialog h2, .v-dialog h3, .v-dialog h4, .v-dialog h5, .v-dialog h6, .v-dialog p,
+.v-sheet h1, .v-sheet h2, .v-sheet h3, .v-sheet h4, .v-sheet h5, .v-sheet h6, .v-sheet p,
+.v-toolbar h1, .v-toolbar h2, .v-toolbar h3, .v-toolbar h4, .v-toolbar h5, .v-toolbar h6, .v-toolbar p,
+.v-expansion-panel h1, .v-expansion-panel h2, .v-expansion-panel h3, .v-expansion-panel h4, .v-expansion-panel h5, .v-expansion-panel h6, .v-expansion-panel p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+}
+
+/* Utility classes */
 .serif {
-  font-family: "PT Serif", serif;
+  font-family: "PT Serif", Georgia, "Times New Roman", serif;
 }
 
 .sans-serif {
-  font-family: unset !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Improved list styling */
+ul, ol {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+ul li, ol li {
+  margin: var(--space-sm) 0;
+}
+
+/* Better text spacing for improved readability */
+blockquote {
+  margin: var(--space-xl) 0;
+  padding: var(--space-md) var(--space-lg);
+  border-left: 4px solid var(--df-blue);
+  font-style: italic;
+  background-color: #f8f9fa;
+}
+
+/* Code styling */
+code, pre {
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-size: 0.875em;
+  background-color: rgb(33,33,33);
+  color: white;
+  padding: 0.125em 0.25em;
+  border-radius: 3px;
+}
+
+pre {
+  padding: var(--space-md);
+  overflow-x: auto;
+  border-radius: 6px;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+.narrow-text {
+  max-width: 85ch !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Prevent Scrolling Horizontally */

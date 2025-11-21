@@ -49,26 +49,19 @@ const router = createRouter({
     },
     {
       path: '/report',
-      name: 'reportChoose',
-      component: () => import('../views/ReportBase.vue'),
-      children: [
-        {
-          path: '',
-          name: 'report',
-          component: () => import('../views/ReportChoose.vue'),
-          meta: {
-            title: 'Submit Cameras | DeFlock'
-          },
-        },
-        {
-          path: '/report/id',
-          name: 'reportID',
-          component: () => import('../views/ReportID.vue'),
-          meta: {
-            title: 'Submit Cameras | DeFlock'
-          }
-        },
-      ]
+      name: 'report',
+      component: () => import('../views/ReportChoose.vue'),
+      meta: {
+        title: 'Submit Cameras | DeFlock'
+      }
+    },
+    {
+      path: '/report/id',
+      name: 'reportID',
+      component: () => import('../views/ReportID.vue'),
+      meta: {
+        title: 'Submit Cameras | DeFlock'
+      }
     },
     {
       path: '/council',
@@ -138,6 +131,9 @@ const router = createRouter({
       path: '/foia',
       name: 'foia',
       component: () => import('../views/FOIA.vue'),
+      meta: {
+        title: 'How to Request Public Records | DeFlock'
+      }
     },
     {
       path: '/identify',

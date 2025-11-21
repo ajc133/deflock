@@ -1,5 +1,6 @@
 <template>
-  <v-container class="my-16">
+<DefaultLayout>
+  <v-container>
     <!-- ALPR Verification Dialog -->
     <ALPRVerificationDialog />
     
@@ -85,7 +86,7 @@
           <v-img cover :aspect-ratio="1.5" class="mx-auto mt-5" src="/id.webp" style="width: 90%; border-radius: 8px;" />
 
           <v-card-text class="text-body-1">
-            <p class="mb-4 sans-serif">The <b>OSM Web Editor</b> provides a more advanced interface for detailed reporting in your web browser.</p>
+            <p class="mb-4 sans-serif">The <b>OSM Web Editor</b> provides a more advanced interface for detailed reporting in your browser.</p>
           </v-card-text>
 
           <v-card-actions class="pa-4">
@@ -104,9 +105,11 @@
       </v-col>
     </v-row>
   </v-container>
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import ALPRVerificationDialog from '@/components/ALPRVerificationDialog.vue';
 </script>
 

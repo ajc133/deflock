@@ -41,6 +41,10 @@ const props = defineProps({
     type: Number,
     default: 0.6,
   },
+  backgroundPosition: {
+    type: String,
+    default: 'center center',
+  },
 });
 
 const target = computed(() =>
@@ -51,7 +55,7 @@ const heroStyle = computed(() => {
   if (props.gradient) {
     return `background: ${props.gradient};`;
   } else if (props.imageUrl) {
-    return `background: url('${props.imageUrl}') no-repeat center center / cover; --hero-opacity: ${props.opacity};`;
+    return `background: url('${props.imageUrl}') no-repeat ${props.backgroundPosition} / cover; --hero-opacity: ${props.opacity};`;
   }
   return '';
 });

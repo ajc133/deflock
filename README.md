@@ -14,14 +14,12 @@ I created this project after noticing the mass deployment of ALPRs in cities, to
 Uses OpenStreetMap data to populate a map with crowdsourced locations of ALPRs, along with their type and direction they face.
 
 ### Report ALPRs
-Provides OSM tags for easy reporting of ALPRs based on brand on OSM's editing site. Evemtually, this will be a native feature of the site.
+Provides OSM tags for easy reporting of ALPRs based on brand on OSM's editing site. Eventually, this will be a native feature of the site.
 
 ### Learn About ALPRs
 See photos of common ALPRs and learn about their capabilities.
 
 ## Tech Stack
-
-_Likely to change soon._
 
 ### Backend
 * Scala
@@ -29,9 +27,11 @@ _Likely to change soon._
 * Nginx
 
 ### Cloud
-* AWS Lambda (for [clustering](serverless/alpr_clusters) and [counts](serverless/alpr_counts))
+* AWS Lambda (for [region segmenting](serverless/alpr_clusters) and [counts](serverless/alpr_counts))
 * AWS S3
 * AWS ECR
+* Cloudflare as DNS + Proxy
+* Directus CDN
 
 ### Frontend
 * Vue3
@@ -39,9 +39,8 @@ _Likely to change soon._
 * Vue Leaflet (mapping library)
 
 ### Services
-* OpenStreetMap - Overpass API
+* OpenStreetMap - Overpass API, Basic Map Tiles
 * Nominatim - Geocoding
-* Stadia Maps - Map Tiles
 
 ## Usage
 
@@ -59,6 +58,10 @@ _Likely to change soon._
 
 1. `cd shotgun`
 2. `sbt run`
+
+### Building for Production
+
+See [Dockerfile](./Dockerfile).
 
 ## Contributing
 

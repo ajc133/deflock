@@ -1,5 +1,6 @@
 <template>
-  <v-container class="mb-16">
+<DefaultLayout>
+  <v-container>
     <v-row justify="center" class="mb-8">
       <v-col cols="12" md="8" class="text-center">
         <h1 class="text-h3 font-weight-bold mb-4">Contact Us</h1>
@@ -126,12 +127,11 @@
       </v-col>
     </v-row>
   </v-container>
-  
-  <Footer />
+</DefaultLayout>
 </template>
 
 <script setup lang="ts">
-import Footer from '@/components/layout/Footer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useTheme } from 'vuetify';
 import { computed, ref } from 'vue';
 
@@ -141,8 +141,6 @@ const showContactOptions = ref(false);
 </script>
  
 <style lang="css" scoped>
-@import url('@/assets/typography.css');
-
 .card-title-wrap {
   white-space: normal !important;
   overflow: visible !important;
