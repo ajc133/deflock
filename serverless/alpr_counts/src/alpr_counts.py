@@ -1,9 +1,16 @@
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "boto3",
+#     "requests",
+# ]
+# ///
 import json
 import requests
 import boto3
 
-def fetch_alpr_surveillance_nodes(usa_only=False):
-  overpass_url = "http://overpass-api.de/api/interpreter"
+def fetch_alpr_count(usa_only=False):
+  overpass_url = "https://overpass-api.de/api/interpreter"
   overpass_query = f"""
   [out:json][timeout:180];
   {'area["ISO3166-1"="US"]->.searchArea;' if usa_only else ''}
@@ -24,8 +31,8 @@ def fetch_alpr_surveillance_nodes(usa_only=False):
 
 def lambda_handler(event, context):
   try:
-    us_alprs = fetch_alpr_surveillance_nodes(usa_only=True)
-    worldwide_alprs = fetch_alpr_surveillance_nodes()
+    us_alprs = fetch_alpr_count(usa_only=True)
+    worldwide_alprs = fetch_alpr_count()
   except Exception as e:
     return {
       'statusCode': 500,
@@ -52,3 +59,8 @@ def lambda_handler(event, context):
     'statusCode': 200,
     'body': 'Successfully fetched ALPR counts.',
   }
+
+if __name__=="__main__":
+  print(f"{fetch_alpr_count(usa_only=True)} ALPR's in the US")
+  print(f"{fetch_alpr_count(usa_only=False)} ALPR's worldwide")
+
